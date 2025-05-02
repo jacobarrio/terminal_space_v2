@@ -1,4 +1,5 @@
 /* Terminal Space - Global Styles */
+@import 'inter-ui/inter.css';
 
 :root {
   /* Color scheme - Light Mode */
@@ -62,6 +63,15 @@
   --z-index-above: 10;
   --z-index-modal: 100;
   --z-index-toast: 1000;
+  
+  /* Animations */
+  --animation-fade-in: fade-in 0.3s ease-out;
+  --animation-slide-up: slide-up 0.4s ease-out;
+  --animation-slide-down: slide-down 0.4s ease-out;
+  --animation-slide-left: slide-left 0.4s ease-out;
+  --animation-slide-right: slide-right 0.4s ease-out;
+  --animation-scale: scale 0.3s ease-out;
+  --animation-pulse: pulse 1.5s infinite;
 }
 
 /* Dark Mode Colors */
@@ -457,4 +467,169 @@ input:focus, textarea:focus, select:focus {
   .desktop-only {
     display: block;
   }
+}
+
+/* Animation Keyframes */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-left {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-right {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scale {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Animation utility classes */
+.fade-in {
+  animation: var(--animation-fade-in);
+}
+
+.slide-up {
+  animation: var(--animation-slide-up);
+}
+
+.slide-down {
+  animation: var(--animation-slide-down);
+}
+
+.slide-left {
+  animation: var(--animation-slide-left);
+}
+
+.slide-right {
+  animation: var(--animation-slide-right);
+}
+
+.scale {
+  animation: var(--animation-scale);
+}
+
+.pulse {
+  animation: var(--animation-pulse);
+}
+
+/* Staggered animations */
+.stagger-item:nth-child(1) { animation-delay: 0ms; }
+.stagger-item:nth-child(2) { animation-delay: 50ms; }
+.stagger-item:nth-child(3) { animation-delay: 100ms; }
+.stagger-item:nth-child(4) { animation-delay: 150ms; }
+.stagger-item:nth-child(5) { animation-delay: 200ms; }
+.stagger-item:nth-child(6) { animation-delay: 250ms; }
+.stagger-item:nth-child(7) { animation-delay: 300ms; }
+.stagger-item:nth-child(8) { animation-delay: 350ms; }
+.stagger-item:nth-child(n+9) { animation-delay: 400ms; }
+
+/* Mobile-friendly hover effects */
+@media (hover: hover) {
+  .hover-card {
+    transition: var(--transition-medium);
+  }
+  
+  .hover-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-2);
+  }
+}
+
+/* Badge styles for tags */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Political leaning badges */
+.badge-left {
+  background-color: rgba(0, 100, 255, 0.15);
+  color: #0064ff;
+}
+
+.badge-center {
+  background-color: rgba(75, 75, 75, 0.15);
+  color: #4b4b4b;
+}
+
+.badge-right {
+  background-color: rgba(255, 50, 50, 0.15);
+  color: #ff3232;
+}
+
+/* Tone badges */
+.badge-neutral {
+  background-color: rgba(90, 90, 90, 0.15);
+  color: #5a5a5a;
+}
+
+.badge-positive {
+  background-color: rgba(0, 200, 83, 0.15);
+  color: #00c853;
+}
+
+.badge-negative {
+  background-color: rgba(239, 83, 80, 0.15);
+  color: #ef5350;
+}
+
+.badge-emotional {
+  background-color: rgba(255, 111, 0, 0.15);
+  color: #ff6f00;
+}
+
+.badge-factual {
+  background-color: rgba(3, 169, 244, 0.15);
+  color: #03a9f4;
+}
+
+.badge-sarcastic {
+  background-color: rgba(186, 104, 200, 0.15);
+  color: #ba68c8;
+}
+
+.badge-alarming {
+  background-color: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+}
+
+/* Dark mode adjustments for badges */
+.dark-mode .badge-center {
+  background-color: rgba(180, 180, 180, 0.2);
+  color: #e0e0e0;
+}
+
+.dark-mode .badge-neutral {
+  background-color: rgba(180, 180, 180, 0.2);
+  color: #e0e0e0;
 }
