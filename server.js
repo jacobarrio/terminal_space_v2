@@ -221,6 +221,53 @@ app.post('/api/analyze', async (req, res) => {
   }
 });
 
+// Route for article bias and tone analysis
+app.post('/api/bias-tone', async (req, res) => {
+  try {
+    const { content, title } = req.body;
+    
+    if (!content) {
+      return res.status(400).json({ error: 'Article content is required' });
+    }
+
+    // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "system",
+          content: "You are an expert at political and media analysis. Your task is to classify news articles by their political leaning and tone."
+        },
+        {
+          role: "user",
+          content: `Title: ${title}\n\nContent: ${content}\n\nPlease analyze this news article and determine:
+          1. Political leaning (Left, Center-Left, Center, Center-Right, Right)
+          2. Primary tone (Neutral, Positive, Negative, Emotional, Factual, Sarcastic, Alarming)
+          3. Confidence in your assessment (0.0 to 1.0)
+          
+          Return only a JSON object with the following structure:
+          {
+            "politicalLeaning": string,
+            "tone": string,
+            "confidence": number,
+            "explanation": string
+          }`
+        }
+      ],
+      response_format: { type: "json_object" }
+    });
+
+    const analysisData = JSON.parse(response.choices[0].message.content);
+    res.json(analysisData);
+  } catch (error) {
+    console.error('Error analyzing bias and tone:', error.message);
+    res.status(500).json({ 
+      error: 'Failed to analyze bias and tone',
+      details: error.message 
+    });
+  }
+});
+
 // Route to compare multiple articles
 app.post('/api/compare', async (req, res) => {
   try {

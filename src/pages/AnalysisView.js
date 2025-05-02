@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import { getArticleById } from '../services/gnewsService';
-import { analyzeArticle, compareArticles } from '../services/openaiService';
+import { analyzeArticle, compareArticles, getBiasToneAnalysis } from '../services/openaiService';
 import '../styles/AnalysisView.css';
 
 const AnalysisView = ({ isCompareMode = false }) => {
@@ -12,6 +12,7 @@ const AnalysisView = ({ isCompareMode = false }) => {
   
   const [article, setArticle] = useState(null);
   const [analysis, setAnalysis] = useState(null);
+  const [biasAnalysis, setBiasAnalysis] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
@@ -43,8 +44,15 @@ const AnalysisView = ({ isCompareMode = false }) => {
         
         if (articleData) {
           const content = articleData.content || articleData.description;
-          const analysisData = await analyzeArticle(content, articleData.title);
+          
+          // Request full analysis and bias/tone in parallel to speed up loading
+          const [analysisData, biasData] = await Promise.all([
+            analyzeArticle(content, articleData.title),
+            getBiasToneAnalysis(content, articleData.title)
+          ]);
+          
           setAnalysis(analysisData);
+          setBiasAnalysis(biasData);
         }
       } catch (err) {
         setError(`Failed to load article analysis: ${err.message}`);
