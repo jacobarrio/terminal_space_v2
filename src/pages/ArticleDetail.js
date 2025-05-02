@@ -4,7 +4,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import AnalysisCard from '../components/AnalysisCard';
 import { getArticleById } from '../services/gnewsService';
-import { summarizeArticle, analyzeArticle } from '../services/openaiService';
+import { summarizeArticle, analyzeArticle, getBiasToneAnalysis } from '../services/openaiService';
 import '../styles/ArticleDetail.css';
 
 const ArticleDetail = () => {

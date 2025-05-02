@@ -57,6 +57,182 @@
   text-decoration: underline;
 }
 
+/* Bias/Tone Badges */
+.bias-tone-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-divider);
+}
+
+.bias-badge,
+.tone-badge {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--transition-fast);
+}
+
+.bias-badge:hover,
+.tone-badge:hover {
+  transform: translateY(-2px);
+}
+
+/* Political leaning badges */
+.bias-badge.left {
+  background-color: rgba(41, 98, 255, 0.15);
+  color: #2962ff;
+}
+
+.bias-badge.center-left {
+  background-color: rgba(92, 107, 192, 0.15);
+  color: #5c6bc0;
+}
+
+.bias-badge.center {
+  background-color: rgba(120, 144, 156, 0.15);
+  color: #78909c;
+}
+
+.bias-badge.center-right {
+  background-color: rgba(229, 115, 115, 0.15);
+  color: #e57373;
+}
+
+.bias-badge.right {
+  background-color: rgba(211, 47, 47, 0.15);
+  color: #d32f2f;
+}
+
+/* Tone badges */
+.tone-badge.neutral {
+  background-color: rgba(120, 144, 156, 0.15);
+  color: #78909c;
+}
+
+.tone-badge.positive {
+  background-color: rgba(0, 200, 83, 0.15);
+  color: var(--color-success);
+}
+
+.tone-badge.negative {
+  background-color: rgba(211, 47, 47, 0.15);
+  color: #d32f2f;
+}
+
+.tone-badge.factual {
+  background-color: rgba(3, 169, 244, 0.15);
+  color: #03a9f4;
+}
+
+.tone-badge.emotional {
+  background-color: rgba(255, 87, 34, 0.15);
+  color: #ff5722;
+}
+
+.tone-badge.sarcastic {
+  background-color: rgba(186, 104, 200, 0.15);
+  color: #ba68c8;
+}
+
+.tone-badge.alarming {
+  background-color: rgba(255, 193, 7, 0.15);
+  color: var(--color-warning);
+}
+
+/* Confidence indicators */
+.confidence-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.confidence-indicator.high {
+  background-color: rgba(0, 200, 83, 0.1);
+  color: var(--color-success);
+}
+
+.confidence-indicator.medium {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: var(--color-warning);
+}
+
+.confidence-indicator.low {
+  background-color: rgba(211, 47, 47, 0.1);
+  color: var(--color-error);
+}
+
+/* Bias Tone Grid */
+.bias-tone-analysis {
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-1);
+}
+
+.bias-tone-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+.bias-tone-explanation {
+  grid-column: 1 / -1;
+  background-color: rgba(120, 144, 156, 0.05);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.bias-tone-explanation h4 {
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-xs);
+  color: var(--color-text-primary);
+}
+
+.bias-tone-explanation p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-size: var(--font-size-md);
+}
+
+.bias-tone-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-md);
+  background-color: rgba(120, 144, 156, 0.05);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-fast);
+}
+
+.bias-tone-card:hover {
+  transform: translateY(-4px);
+}
+
+.bias-tone-card h4 {
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-md);
+  color: var(--color-text-primary);
+}
+
+.bias-badge.large,
+.tone-badge.large {
+  padding: var(--space-sm) var(--space-xl);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+}
+
 /* Analysis sections */
 .analysis-sections {
   display: flex;

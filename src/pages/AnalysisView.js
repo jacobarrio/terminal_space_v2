@@ -136,6 +136,9 @@ const AnalysisView = ({ isCompareMode = false }) => {
   const renderSingleAnalysis = () => {
     if (!article || !analysis) return null;
     
+    // For bias/tone badges
+    const hasBiasAnalysis = biasAnalysis && biasAnalysis.politicalLeaning && biasAnalysis.tone;
+    
     return (
       <div className="single-analysis-container">
         <div className="analysis-header">
@@ -152,9 +155,65 @@ const AnalysisView = ({ isCompareMode = false }) => {
               View Original <i data-feather="external-link"></i>
             </a>
           </div>
+          
+          {/* Quick bias/tone badges from new API */}
+          {hasBiasAnalysis && (
+            <div className="bias-tone-badges">
+              <div className={`bias-badge ${biasAnalysis.politicalLeaning.toLowerCase().replace(/\s+/g, '-')}`}>
+                {biasAnalysis.politicalLeaning}
+              </div>
+              <div className={`tone-badge ${biasAnalysis.tone.toLowerCase().replace(/\s+/g, '-')}`}>
+                {biasAnalysis.tone}
+              </div>
+              {biasAnalysis.confidence >= 0.7 && (
+                <div className="confidence-indicator high">
+                  <i data-feather="check-circle"></i>
+                  <span>High Confidence</span>
+                </div>
+              )}
+              {biasAnalysis.confidence < 0.7 && biasAnalysis.confidence >= 0.4 && (
+                <div className="confidence-indicator medium">
+                  <i data-feather="help-circle"></i>
+                  <span>Medium Confidence</span>
+                </div>
+              )}
+              {biasAnalysis.confidence < 0.4 && (
+                <div className="confidence-indicator low">
+                  <i data-feather="alert-circle"></i>
+                  <span>Low Confidence</span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         
         <div className="analysis-sections">
+          {hasBiasAnalysis && (
+            <section className="analysis-section bias-tone-analysis">
+              <h3>Quick Political Leaning & Tone Analysis</h3>
+              <div className="bias-tone-grid">
+                <div className="bias-tone-card">
+                  <h4>Political Leaning</h4>
+                  <div className={`bias-badge large ${biasAnalysis.politicalLeaning.toLowerCase().replace(/\s+/g, '-')}`}>
+                    {biasAnalysis.politicalLeaning}
+                  </div>
+                </div>
+                <div className="bias-tone-card">
+                  <h4>Content Tone</h4>
+                  <div className={`tone-badge large ${biasAnalysis.tone.toLowerCase().replace(/\s+/g, '-')}`}>
+                    {biasAnalysis.tone}
+                  </div>
+                </div>
+                {biasAnalysis.explanation && (
+                  <div className="bias-tone-explanation">
+                    <h4>Explanation</h4>
+                    <p>{biasAnalysis.explanation}</p>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+          
           <section className="analysis-section">
             <h3>Political Bias Analysis</h3>
             <div className="bias-visual">
