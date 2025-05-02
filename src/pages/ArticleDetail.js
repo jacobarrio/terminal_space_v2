@@ -167,8 +167,10 @@ const ArticleDetail = () => {
       
       <article className="article-content">
         <div className="article-meta">
-          <span className="article-source">{getSourceName(article.source)}</span>
-          <span className="article-date">{formatDate(article.publishedAt)}</span>
+          <div className="meta-top">
+            <span className="article-source">{getSourceName(article.source)}</span>
+            <span className="article-date">{formatDate(article.publishedAt)}</span>
+          </div>
           
           {/* Display quick bias/tone badges if available */}
           {biasAnalysis && biasAnalysis.politicalLeaning && biasAnalysis.tone && (
