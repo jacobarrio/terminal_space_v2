@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/AnalysisCard.css';
 
-const AnalysisCard = ({ analysis, compact = false }) => {
+const AnalysisCard = ({ analysis, biasAnalysis, compact = false }) => {
   // Function to render the bias gauge
   const renderBiasGauge = (biasScore) => {
     const score = parseFloat(biasScore);
@@ -75,6 +75,29 @@ const AnalysisCard = ({ analysis, compact = false }) => {
   return (
     <div className="analysis-card">
       <h3 className="analysis-title">Content Analysis</h3>
+      
+      {/* Display quick bias/tone badges if available from biasAnalysis */}
+      {biasAnalysis && biasAnalysis.politicalLeaning && biasAnalysis.tone && (
+        <div className="quick-analysis-badges">
+          <div className={`bias-badge ${biasAnalysis.politicalLeaning.toLowerCase().replace(/\s+/g, '-')}`}>
+            {biasAnalysis.politicalLeaning}
+          </div>
+          
+          <div className={`tone-badge ${biasAnalysis.tone.toLowerCase().replace(/\s+/g, '-')}`}>
+            {biasAnalysis.tone}
+          </div>
+          
+          {biasAnalysis.confidence && (
+            <div className={`confidence-badge ${
+              biasAnalysis.confidence >= 0.7 ? 'high' : 
+              biasAnalysis.confidence >= 0.4 ? 'medium' : 'low'
+            }`}>
+              {biasAnalysis.confidence >= 0.7 ? 'High' : 
+               biasAnalysis.confidence >= 0.4 ? 'Medium' : 'Low'} Confidence
+            </div>
+          )}
+        </div>
+      )}
       
       <div className="analysis-section">
         <h4 className="section-title">Political Bias</h4>

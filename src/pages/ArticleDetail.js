@@ -14,8 +14,9 @@ const ArticleDetail = () => {
   const [article, setArticle] = useState(null);
   const [summary, setSummary] = useState('');
   const [analysis, setAnalysis] = useState(null);
-  const [loading, setLoading] = useState({ article: true, summary: false, analysis: false });
-  const [error, setError] = useState({ article: null, summary: null, analysis: null });
+  const [biasAnalysis, setBiasAnalysis] = useState(null);
+  const [loading, setLoading] = useState({ article: true, summary: false, analysis: false, biasAnalysis: false });
+  const [error, setError] = useState({ article: null, summary: null, analysis: null, biasAnalysis: null });
   const [showFullContent, setShowFullContent] = useState(false);
 
   // Decode the ID (which is base64 encoded URL)
@@ -72,20 +73,41 @@ const ArticleDetail = () => {
   const handleAnalyze = async () => {
     if (!article) return;
     
-    setLoading(prev => ({ ...prev, analysis: true }));
-    setError(prev => ({ ...prev, analysis: null }));
+    // Start both analyses in parallel
+    setLoading(prev => ({ 
+      ...prev, 
+      analysis: true,
+      biasAnalysis: true 
+    }));
+    setError(prev => ({ 
+      ...prev, 
+      analysis: null,
+      biasAnalysis: null
+    }));
     
+    const content = article.content || article.description;
+    
+    // Run both analyses in parallel
     try {
-      const content = article.content || article.description;
-      const result = await analyzeArticle(content, article.title);
-      setAnalysis(result);
+      const [analysisResult, biasResult] = await Promise.all([
+        analyzeArticle(content, article.title),
+        getBiasToneAnalysis(content, article.title)
+      ]);
+      
+      setAnalysis(analysisResult);
+      setBiasAnalysis(biasResult);
     } catch (err) {
       setError(prev => ({ 
         ...prev, 
-        analysis: `Failed to analyze article: ${err.message}` 
+        analysis: `Failed to analyze article: ${err.message}`,
+        biasAnalysis: `Failed to analyze bias/tone: ${err.message}`
       }));
     } finally {
-      setLoading(prev => ({ ...prev, analysis: false }));
+      setLoading(prev => ({ 
+        ...prev, 
+        analysis: false,
+        biasAnalysis: false
+      }));
     }
   };
 
@@ -147,6 +169,18 @@ const ArticleDetail = () => {
         <div className="article-meta">
           <span className="article-source">{getSourceName(article.source)}</span>
           <span className="article-date">{formatDate(article.publishedAt)}</span>
+          
+          {/* Display quick bias/tone badges if available */}
+          {biasAnalysis && biasAnalysis.politicalLeaning && biasAnalysis.tone && (
+            <div className="bias-tone-indicators">
+              <div className={`bias-badge ${biasAnalysis.politicalLeaning.toLowerCase().replace(/\s+/g, '-')}`}>
+                {biasAnalysis.politicalLeaning}
+              </div>
+              <div className={`tone-badge ${biasAnalysis.tone.toLowerCase().replace(/\s+/g, '-')}`}>
+                {biasAnalysis.tone}
+              </div>
+            </div>
+          )}
         </div>
         
         <h1 className="article-title">{article.title}</h1>
@@ -234,7 +268,7 @@ const ArticleDetail = () => {
               />
             </div>
           ) : analysis ? (
-            <AnalysisCard analysis={analysis} />
+            <AnalysisCard analysis={analysis} biasAnalysis={biasAnalysis} />
           ) : (
             <div className="analysis-placeholder">
               <button 

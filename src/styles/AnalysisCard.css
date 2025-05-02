@@ -17,6 +17,113 @@
   border-bottom: 1px solid var(--color-divider);
 }
 
+/* Quick Analysis Badges */
+.quick-analysis-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background-color: var(--color-background);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
+}
+
+.bias-badge,
+.tone-badge,
+.confidence-badge {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--transition-fast);
+}
+
+.bias-badge:hover,
+.tone-badge:hover {
+  transform: translateY(-2px);
+}
+
+/* Political leaning badges */
+.bias-badge.left {
+  background-color: rgba(41, 98, 255, 0.15);
+  color: #2962ff;
+}
+
+.bias-badge.center-left {
+  background-color: rgba(92, 107, 192, 0.15);
+  color: #5c6bc0;
+}
+
+.bias-badge.center {
+  background-color: rgba(120, 144, 156, 0.15);
+  color: #78909c;
+}
+
+.bias-badge.center-right {
+  background-color: rgba(229, 115, 115, 0.15);
+  color: #e57373;
+}
+
+.bias-badge.right {
+  background-color: rgba(211, 47, 47, 0.15);
+  color: #d32f2f;
+}
+
+/* Tone badges */
+.tone-badge.neutral {
+  background-color: rgba(120, 144, 156, 0.15);
+  color: #78909c;
+}
+
+.tone-badge.positive {
+  background-color: rgba(0, 200, 83, 0.15);
+  color: var(--color-success);
+}
+
+.tone-badge.negative {
+  background-color: rgba(211, 47, 47, 0.15);
+  color: #d32f2f;
+}
+
+.tone-badge.factual {
+  background-color: rgba(3, 169, 244, 0.15);
+  color: #03a9f4;
+}
+
+.tone-badge.emotional {
+  background-color: rgba(255, 87, 34, 0.15);
+  color: #ff5722;
+}
+
+.tone-badge.sarcastic {
+  background-color: rgba(186, 104, 200, 0.15);
+  color: #ba68c8;
+}
+
+.tone-badge.alarming {
+  background-color: rgba(255, 193, 7, 0.15);
+  color: var(--color-warning);
+}
+
+/* Confidence badges */
+.confidence-badge.high {
+  background-color: rgba(0, 200, 83, 0.15);
+  color: var(--color-success);
+}
+
+.confidence-badge.medium {
+  background-color: rgba(255, 193, 7, 0.15);
+  color: var(--color-warning);
+}
+
+.confidence-badge.low {
+  background-color: rgba(211, 47, 47, 0.15);
+  color: var(--color-error);
+}
+
 /* Sections */
 .analysis-section {
   margin-bottom: var(--space-xl);
