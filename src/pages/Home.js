@@ -18,6 +18,7 @@ const Home = () => {
   const [viewPreference, setViewPreference] = useState('summary');
   
   const searchInputRef = useRef(null);
+  const cachedArticlesRef = useRef({});
   const navigate = useNavigate();
   
   // Get search params from URL
@@ -68,7 +69,7 @@ const Home = () => {
   // Initial load and reload when search or category changes
   useEffect(() => {
     loadNews();
-  }, [loadNews]);
+  }, [searchQuery, category]);
 
   // When feather icons are in the DOM, replace them with SVG
   useEffect(() => {
@@ -95,7 +96,10 @@ const Home = () => {
           const parsed = JSON.parse(cachedData);
           // Check if cache is valid (less than 24 hours old)
           if (parsed.timestamp && (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000)) {
-            setCachedArticles(parsed.articles || {});
+            const articles = parsed.articles || {};
+            setCachedArticles(articles);
+            // Update ref to match state
+            cachedArticlesRef.current = articles;
           } else {
             // Clear expired cache
             localStorage.removeItem('terminal_space_articles');
@@ -107,35 +111,52 @@ const Home = () => {
     }
   }, []);
 
-  // Update cache when articles change
+  // Update state when the ref changes
+  useEffect(() => {
+    // Keep state in sync with the ref (which is stable)
+    setCachedArticles(cachedArticlesRef.current);
+  }, []);
+
+  // Update cache when articles change - Use a stable ref to avoid dependency cycles
   useEffect(() => {
     if (articles.length > 0 && typeof window !== 'undefined' && window.localStorage) {
       try {
-        const articleCache = { ...cachedArticles };
+        // Use the ref for stable access to current value
+        const currentCache = cachedArticlesRef.current;
+        const existingUrls = new Set(Object.keys(currentCache));
+        const articleUrls = articles.map(article => article.url).filter(Boolean);
+        const hasNewArticles = articleUrls.some(url => !existingUrls.has(url));
         
-        // Add or update articles in cache
-        articles.forEach(article => {
-          if (article.url) {
-            articleCache[article.url] = {
-              ...article,
-              cached: Date.now()
-            };
-          }
-        });
-        
-        // Store in localStorage with timestamp
-        localStorage.setItem('terminal_space_articles', JSON.stringify({
-          articles: articleCache,
-          timestamp: Date.now()
-        }));
-        
-        // Update state
-        setCachedArticles(articleCache);
+        if (hasNewArticles) {
+          const timestamp = Date.now();
+          const articleCache = { ...currentCache };
+          
+          // Add or update articles in cache
+          articles.forEach(article => {
+            if (article.url) {
+              articleCache[article.url] = {
+                ...article,
+                cached: timestamp
+              };
+            }
+          });
+          
+          // Store in localStorage with timestamp
+          localStorage.setItem('terminal_space_articles', JSON.stringify({
+            articles: articleCache,
+            timestamp
+          }));
+          
+          // Update the ref directly (stable, won't trigger re-renders)
+          cachedArticlesRef.current = articleCache;
+          // Then update the state once (for UI updates)
+          setCachedArticles(articleCache);
+        }
       } catch (e) {
         console.error('Error writing to localStorage', e);
       }
     }
-  }, [articles, cachedArticles]);
+  }, [articles]);
 
   // Handle category change
   const handleCategoryChange = (newCategory) => {
