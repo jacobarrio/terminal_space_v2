@@ -1,0 +1,99 @@
+/* Terminal Space - Futuristic Background Styles */
+
+/* Futuristic background wrapper */
+.futuristic-background {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Background image container */
+.bg-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Background image styling */
+.bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.7; /* Slightly reduced opacity */
+  filter: blur(8px); /* Mild blur for readability */
+  transform: scale(1.05); /* Slightly larger to cover blur edges */
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+/* Dark overlay for better contrast */
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 15, 15, 0.75); /* Dark overlay */
+  z-index: -1;
+  backdrop-filter: blur(8px); /* Additional blur in the overlay */
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Content container inside the background */
+.bg-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* Animation for the background - subtle pulse effect */
+@keyframes bg-pulse {
+  0% {
+    filter: blur(8px) brightness(1);
+  }
+  50% {
+    filter: blur(7px) brightness(1.05);
+  }
+  100% {
+    filter: blur(8px) brightness(1);
+  }
+}
+
+/* Apply animation conditionally */
+.bg-animated .bg-image {
+  animation: bg-pulse 8s ease-in-out infinite;
+}
+
+/* Media queries for responsive adjustments */
+@media (max-width: 768px) {
+  .bg-image {
+    filter: blur(5px); /* Less blur on mobile */
+  }
+  
+  .bg-overlay {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+  
+  @keyframes bg-pulse {
+    0% {
+      filter: blur(5px) brightness(1);
+    }
+    50% {
+      filter: blur(4px) brightness(1.05);
+    }
+    100% {
+      filter: blur(5px) brightness(1);
+    }
+  }
+}
+
+/* Helper class to create space at the bottom */
+.bg-content-padding {
+  padding: 24px;
+}
