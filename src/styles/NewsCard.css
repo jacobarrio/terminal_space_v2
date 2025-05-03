@@ -1,24 +1,29 @@
 /* News Card Component Styles */
 
 .news-card {
-  background-color: rgba(20, 20, 20, 0.7); /* More transparency to see background */
+  background-color: rgba(20, 20, 20, 0.5); /* More transparency to see background */
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 215, 0, 0.15);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 215, 0, 0.05) inset;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.3), 
+    0 0 0 1px rgba(255, 215, 0, 0.08) inset,
+    0 0 30px rgba(0, 0, 0, 0.4);
   margin-bottom: var(--space-lg);
   overflow: hidden;
-  transition: transform var(--transition-medium), 
-              box-shadow var(--transition-medium),
-              background-color var(--transition-medium),
-              border-color var(--transition-medium);
+  transition: all var(--transition-medium);
   animation: var(--animation-slide-up);
   animation-fill-mode: both;
   will-change: transform, opacity;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  
+  /* Enhanced glassmorphism effect */
+  backdrop-filter: blur(15px) saturate(130%);
+  -webkit-backdrop-filter: blur(15px) saturate(130%);
+  
   position: relative;
+  z-index: 1; /* Ensure proper stacking */
 }
 
+/* Add subtle golden glow to edges */
 .news-card::before {
   content: '';
   position: absolute;
@@ -26,16 +31,41 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.3), transparent);
+  background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.4), transparent);
   opacity: 0;
   transition: opacity var(--transition-medium);
+  z-index: 2;
+}
+
+/* Add subtle rim light effect along edges to enhance depth */
+.news-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 215, 0, 0.05) 20%,
+    transparent 50%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 3;
 }
 
 .news-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.3) inset, 0 0 15px rgba(255, 215, 0, 0.15);
-  border-color: rgba(255, 215, 0, 0.4);
-  background-color: rgba(25, 25, 25, 0.65); /* Slightly darker on hover to enhance content visibility */
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.3), 
+    0 0 0 1px rgba(255, 215, 0, 0.35) inset, 
+    0 0 20px rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.45);
+  background-color: rgba(25, 25, 25, 0.55); /* Slightly darker on hover to enhance content visibility */
 }
 
 .news-card:hover::before {
@@ -264,11 +294,11 @@
   transition: all var(--transition-fast);
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-md);
-  background-color: rgba(30, 30, 30, 0.7);
+  background-color: rgba(30, 30, 30, 0.5); /* More transparent */
   border: 1px solid rgba(255, 215, 0, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px) saturate(120%); /* Enhanced glassmorphism */
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -276,9 +306,13 @@
   color: var(--color-primary);
   text-decoration: none;
   background-color: rgba(255, 215, 0, 0.15);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 5px 10px rgba(0, 0, 0, 0.2), 
+    0 0 15px rgba(255, 215, 0, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   border-color: var(--color-primary);
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
 /* Search result card variation */
@@ -311,7 +345,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  background: rgba(30, 30, 30, 0.7);
+  background: rgba(30, 30, 30, 0.5); /* More transparent */
   color: var(--color-primary);
   border: 1px solid rgba(255, 215, 0, 0.3);
   padding: var(--space-xs) var(--space-sm);
@@ -319,16 +353,20 @@
   font-size: var(--font-size-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px) saturate(120%); /* Enhanced glassmorphism */
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .toggle-view-button:hover {
   background-color: rgba(255, 215, 0, 0.15);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 5px 10px rgba(0, 0, 0, 0.2), 
+    0 0 15px rgba(255, 215, 0, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
 .toggle-view-button .icon-toggle {
@@ -340,9 +378,13 @@
 }
 
 .toggle-view-button.expanded {
-  background-color: var(--color-primary);
-  color: #121212;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 215, 0, 0.25); /* Subtle gold background */
+  color: #FFD700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2), 
+    0 0 20px rgba(255, 215, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 215, 0, 0.3);
 }
 
 /* Share button styles */
@@ -354,20 +396,25 @@
   height: 36px;
   border-radius: var(--radius-circular);
   color: var(--color-primary);
-  background-color: rgba(30, 30, 30, 0.7);
+  background-color: rgba(30, 30, 30, 0.5); /* More transparent */
   border: 1px solid rgba(255, 215, 0, 0.3);
   cursor: pointer;
   transition: all var(--transition-fast);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px) saturate(120%); /* Enhanced glassmorphism */
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .share-button:hover {
   background-color: rgba(255, 215, 0, 0.15);
   border-color: var(--color-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 5px 10px rgba(0, 0, 0, 0.2), 
+    0 0 15px rgba(255, 215, 0, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  color: #FFD700;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
 }
 
 /* Expanded content view */

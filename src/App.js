@@ -7,6 +7,7 @@ import Header from './components/Header';
 import ImmersiveBackground from './components/ImmersiveBackground';
 import './styles/GlobalStyles.css';
 import './styles/GoldInteractiveElements.css';
+import './styles/GoldenBackgroundEffect.css'; // Import the new global background effects
 
 const App = () => {
   // State to manage dark mode
