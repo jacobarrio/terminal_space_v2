@@ -32,11 +32,27 @@
   text-decoration: none;
   display: flex;
   align-items: center;
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
+  gap: var(--space-sm);
 }
 
 .logo:hover {
   text-decoration: none;
+  transform: translateY(-2px);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.logo-image {
+  max-width: 120px;
+  height: auto;
+  object-fit: contain;
+  transition: transform var(--transition-fast);
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .logo-terminal {
@@ -233,6 +249,15 @@
   
   .logo {
     font-size: var(--font-size-lg);
+    gap: var(--space-xs);
+  }
+  
+  .logo-image {
+    max-width: 80px;
+  }
+  
+  .logo-text {
+    display: none; /* Hide text on mobile, show only the logo image */
   }
 }
 
