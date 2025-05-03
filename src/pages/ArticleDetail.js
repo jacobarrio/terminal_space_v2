@@ -19,18 +19,20 @@ const ArticleDetail = () => {
   const [error, setError] = useState({ article: null, summary: null, analysis: null, biasAnalysis: null });
   const [showFullContent, setShowFullContent] = useState(false);
 
-  // Decode the ID (which is base64 encoded URL)
-  // Make sure id is a string before trying to decode
-  const decodedId = id ? atob(id.replace(/-/g, '+').replace(/_/g, '/')) : '';
+  // Use the backend's safe decoding instead of trying to decode on the frontend
+  // We'll pass the ID directly to the backend API
 
   // Load article data
   useEffect(() => {
     const loadArticle = async () => {
+      if (!id) return;
+      
       setLoading(prev => ({ ...prev, article: true }));
       setError(prev => ({ ...prev, article: null }));
       
       try {
-        const data = await getArticleById(decodedId);
+        // Pass the ID directly to our API, which will handle decoding
+        const data = await getArticleById(id);
         setArticle(data);
         
         // Automatically start summarization when article loads
@@ -48,7 +50,7 @@ const ArticleDetail = () => {
     };
     
     loadArticle();
-  }, [decodedId]);
+  }, [id]);
 
   // Function to generate article summary
   const handleSummarize = async (articleData) => {

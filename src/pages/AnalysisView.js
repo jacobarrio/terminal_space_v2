@@ -38,8 +38,8 @@ const AnalysisView = ({ isCompareMode = false }) => {
       setError(null);
       
       try {
-        const decodedId = id ? atob(id.replace(/-/g, '+').replace(/_/g, '/')) : '';
-        const articleData = await getArticleById(decodedId);
+        // Pass the ID directly to our API, which will handle decoding
+        const articleData = await getArticleById(id);
         setArticle(articleData);
         
         if (articleData) {
