@@ -220,46 +220,60 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="page-header">
-        <div className="header-top">
-          {searchQuery ? (
-            <h1 className="page-title slide-down">Search Results: "{searchQuery}"</h1>
-          ) : (
-            <h1 className="page-title slide-down">Latest News</h1>
-          )}
-          
-          <div className="header-actions fade-in">
-            <button 
-              className={`view-toggle-button ${viewPreference === 'full' ? 'active' : ''}`}
-              onClick={toggleViewPreference}
-              aria-label={`Switch to ${viewPreference === 'summary' ? 'full' : 'summary'} view`}
-            >
-              <i data-feather={viewPreference === 'summary' ? 'maximize-2' : 'minimize-2'} className="icon-small"></i>
-              <span className="hidden-mobile">{viewPreference === 'summary' ? 'Full View' : 'Summary View'}</span>
-            </button>
-            
-            <button 
-              className={`filter-toggle-button ${showMobileFilters ? 'active' : ''}`}
-              onClick={toggleMobileFilters}
-              aria-label="Toggle filters"
-            >
-              <i data-feather="filter" className="icon-small"></i>
-              <span className="hidden-mobile">Filters</span>
-            </button>
+        <div className="futuristic-background bg-animated">
+          {/* Background image and overlay */}
+          <div className="bg-image-container">
+            <img 
+              src="/images/terminal_space_bg.jpeg" 
+              alt="Terminal Space background" 
+              className="bg-image"
+            />
+            <div className="bg-overlay"></div>
           </div>
-        </div>
-        
-        <div className="header-controls">
-          {renderSearchBar()}
           
-          {!searchQuery && (
-            <div className="filters-container">
-              <div className="mobile-filter-label" onClick={toggleMobileFilters}>
-                <span>Categories</span>
-                <i data-feather={showMobileFilters ? 'chevron-up' : 'chevron-down'} className="icon-small"></i>
+          <div className="bg-content page-header-background">
+            <div className="header-top">
+              {searchQuery ? (
+                <h1 className="page-title slide-down">Search Results: "{searchQuery}"</h1>
+              ) : (
+                <h1 className="page-title slide-down">Latest News</h1>
+              )}
+              
+              <div className="header-actions fade-in">
+                <button 
+                  className={`view-toggle-button ${viewPreference === 'full' ? 'active' : ''}`}
+                  onClick={toggleViewPreference}
+                  aria-label={`Switch to ${viewPreference === 'summary' ? 'full' : 'summary'} view`}
+                >
+                  <i data-feather={viewPreference === 'summary' ? 'maximize-2' : 'minimize-2'} className="icon-small"></i>
+                  <span className="hidden-mobile">{viewPreference === 'summary' ? 'Full View' : 'Summary View'}</span>
+                </button>
+                
+                <button 
+                  className={`filter-toggle-button ${showMobileFilters ? 'active' : ''}`}
+                  onClick={toggleMobileFilters}
+                  aria-label="Toggle filters"
+                >
+                  <i data-feather="filter" className="icon-small"></i>
+                  <span className="hidden-mobile">Filters</span>
+                </button>
               </div>
-              {renderCategoryFilters()}
             </div>
-          )}
+            
+            <div className="header-controls">
+              {renderSearchBar()}
+              
+              {!searchQuery && (
+                <div className="filters-container">
+                  <div className="mobile-filter-label" onClick={toggleMobileFilters}>
+                    <span>Categories</span>
+                    <i data-feather={showMobileFilters ? 'chevron-up' : 'chevron-down'} className="icon-small"></i>
+                  </div>
+                  {renderCategoryFilters()}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
       
