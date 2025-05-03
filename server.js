@@ -66,7 +66,10 @@ app.get('/api/news/:articleId', async (req, res) => {
   try {
     let articleId = req.params.articleId;
     
+    console.log('Article ID received:', articleId);
+    
     if (!articleId) {
+      console.log('No article ID provided');
       return res.status(400).json({ error: 'Article ID is required' });
     }
     
@@ -74,6 +77,7 @@ app.get('/api/news/:articleId', async (req, res) => {
     let originalUrl;
     try {
       originalUrl = safeBase64Decode(articleId);
+      console.log('Decoded URL:', originalUrl);
     } catch (error) {
       console.error('Failed to decode article ID:', error);
       return res.status(400).json({ error: 'Invalid article ID format' });
@@ -87,11 +91,13 @@ app.get('/api/news/:articleId', async (req, res) => {
         const url = new URL(originalUrl);
         // Use hostname or pathname as search term
         searchTerm = url.hostname.replace(/^www\./, '');
+        console.log('Extracted search term:', searchTerm);
       }
     } catch (e) {
-      // If URL parsing fails, just use the original URL
-      console.log('URL parsing failed, using original URL as search term');
+      console.log('URL parsing failed, using original URL as search term:', originalUrl);
     }
+    
+    console.log('Searching for article with term:', searchTerm);
     
     // Fetch the specific article
     const response = await axios.get(`${GNEWS_BASE_URL}/search`, {
@@ -104,8 +110,10 @@ app.get('/api/news/:articleId', async (req, res) => {
     });
     
     if (response.data.articles && response.data.articles.length > 0) {
+      console.log('Found article:', response.data.articles[0].title);
       res.json(response.data.articles[0]);
     } else {
+      console.log('No articles found for search term:', searchTerm);
       res.status(404).json({ error: 'Article not found' });
     }
   } catch (error) {
