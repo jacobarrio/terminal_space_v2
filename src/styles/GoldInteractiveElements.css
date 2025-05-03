@@ -1,99 +1,109 @@
-/* GoldInteractiveElements.css - Styling for interactive UI elements with gold accents */
+/* GoldInteractiveElements.css 
+   Defines glowing gold hover effects for interactive elements */
 
-/* Base interactive element styling */
+/* Base class for all gold interactive elements */
 .gold-interactive {
-  transition: all 300ms ease-in-out;
+  transition: all 0.3s ease;
   position: relative;
 }
 
-/* Gold hover effect for buttons and interactive elements */
-.gold-interactive:hover {
-  box-shadow: 0 0 10px #FFD700;
-  transform: translateY(-2px);
-}
-
-/* Subtle gold border on focus for accessibility */
+.gold-interactive:hover,
 .gold-interactive:focus {
-  outline: 2px solid rgba(255, 215, 0, 0.5);
-  outline-offset: 2px;
+  color: #FFD700 !important;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+  filter: brightness(1.2);
 }
 
-/* Gold pulsing effect for primary CTAs */
-.gold-cta {
-  position: relative;
-  animation: pulse-gold 3s ease-in-out infinite;
-}
-
-/* Button gold hover state */
+/* Button-specific hover effects */
 button.gold-interactive:hover,
-.button.gold-interactive:hover,
-a.gold-interactive:hover {
-  color: #FFD700;
-  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+button.gold-interactive:focus {
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+  border-color: rgba(255, 215, 0, 0.8) !important;
 }
 
-/* Gold underline effect for links */
-a.gold-underline {
-  position: relative;
+/* Call-to-action buttons with stronger effects */
+.gold-cta:hover,
+.gold-cta:focus {
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+/* Underline effect for navigation links */
+.gold-underline {
   text-decoration: none;
+  position: relative;
 }
 
-a.gold-underline::after {
+.gold-underline::after {
   content: '';
   position: absolute;
   width: 0;
   height: 2px;
-  bottom: -2px;
+  bottom: -4px;
   left: 0;
   background-color: #FFD700;
-  transition: width 300ms ease-in-out;
+  transition: width 0.3s ease;
+  opacity: 0.8;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
-a.gold-underline:hover::after {
+.gold-underline:hover::after,
+.gold-underline:focus::after {
   width: 100%;
-  box-shadow: 0 0 5px #FFD700;
 }
 
-/* Gold accent for input focus states */
-input.gold-interactive:focus,
-textarea.gold-interactive:focus,
-select.gold-interactive:focus {
-  border-color: #FFD700;
-  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.25);
+/* Input fields with gold glow on focus */
+input.gold-interactive:focus {
+  border-color: rgba(255, 215, 0, 0.8) !important;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.4) !important;
+  outline: none;
 }
 
-/* Pulsing animation for CTA elements */
-@keyframes pulse-gold {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 5px rgba(255, 215, 0, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
-  }
-}
-
-/* Gold shimmer effect for premium elements */
+/* Gold shimmer animation for text elements */
 .gold-shimmer {
   background: linear-gradient(
-    90deg,
-    #FFD700 0%,
-    #FFF8E1 25%,
-    #FFD700 50%,
-    #FFF8E1 75%,
-    #FFD700 100%
+    to right,
+    #FFD700 20%,
+    #FFF8DC 40%,
+    #FFD700 60%,
+    #FFF8DC 80%
   );
   background-size: 200% auto;
-  color: transparent;
+  color: transparent !important;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: gold-shimmer 3s linear infinite;
+  animation: shimmer 5s linear infinite;
 }
 
-@keyframes gold-shimmer {
-  to {
+/* Animation for shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
     background-position: 200% center;
+  }
+}
+
+/* Gold hover effect on icons */
+.gold-interactive i {
+  transition: all 0.3s ease;
+}
+
+.gold-interactive:hover i,
+.gold-interactive:focus i {
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .gold-interactive:hover,
+  .gold-interactive:focus {
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); /* Subtler effect on mobile */
+  }
+  
+  button.gold-interactive:hover,
+  button.gold-interactive:focus {
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
   }
 }
