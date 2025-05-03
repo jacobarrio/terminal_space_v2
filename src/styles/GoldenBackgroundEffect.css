@@ -1,5 +1,5 @@
 /* GoldenBackgroundEffect.css
-   Defines the immersive golden particle corridor background effect that is applied globally */
+   Implements exact specifications for background and UI containers */
 
 /* Global body styling to ensure background appears on all pages */
 body {
@@ -9,15 +9,21 @@ body {
   overflow-x: hidden;
 }
 
-/* Enhanced glassmorphism for all content containers */
-.glass-panel {
-  background-color: rgba(30, 30, 30, 0.5) !important;
-  backdrop-filter: blur(15px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(15px) saturate(130%) !important;
+/* Glass panels with exact specifications */
+.glass-panel,
+.news-card,
+.article-detail-container,
+.analysis-container,
+.header-container,
+.search-container input,
+.read-more-link, 
+.analysis-link,
+.toggle-view-button,
+.share-button {
+  background-color: rgba(15, 15, 15, 0.3) !important; /* Exactly as specified */
+  backdrop-filter: blur(10px) !important; /* Exactly as specified */
+  -webkit-backdrop-filter: blur(10px) !important;
   border: 1px solid rgba(255, 215, 0, 0.2);
-  box-shadow: 
-    0 4px 30px rgba(0, 0, 0, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 /* Ensure main content containers show the background */
@@ -32,65 +38,23 @@ body {
   background-color: transparent !important;
 }
 
-/* Article detail and analysis panels with enhanced glass effect */
-.article-detail-container,
-.analysis-container {
-  background-color: rgba(20, 20, 20, 0.5) !important;
-  backdrop-filter: blur(15px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(15px) saturate(130%) !important;
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-  margin-bottom: var(--space-lg);
-  overflow: hidden;
-  position: relative;
-}
-
-/* Gold accent for container edges */
-.glass-panel::after,
-.article-detail-container::after,
-.analysis-container::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.05),
-    rgba(255, 215, 0, 0.05) 20%,
-    transparent 50%
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* Make sure headers have the correct transparency */
+/* Header styling */
 .header {
-  background-color: rgba(15, 15, 15, 0.7) !important;
-  backdrop-filter: blur(10px) !important;
+  background-color: rgba(15, 15, 15, 0.3) !important; /* Exactly as specified */
+  backdrop-filter: blur(10px) !important; /* Exactly as specified */
   -webkit-backdrop-filter: blur(10px) !important;
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* Ensure forms and inputs let the background shine through */
 input, textarea, select {
-  background-color: rgba(30, 30, 30, 0.6) !important;
-  backdrop-filter: blur(10px) !important;
+  background-color: rgba(15, 15, 15, 0.3) !important; /* Exactly as specified */
+  backdrop-filter: blur(10px) !important; /* Exactly as specified */
   -webkit-backdrop-filter: blur(10px) !important;
   border: 1px solid rgba(255, 215, 0, 0.2) !important;
 }
 
 input:focus, textarea:focus, select:focus {
-  background-color: rgba(30, 30, 30, 0.7) !important;
-  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3) !important;
   border-color: rgba(255, 215, 0, 0.4) !important;
 }
 
@@ -99,6 +63,15 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-p, li, span, div {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+/* Ensure all containers have exact transparency */
+.container,
+.article-container,
+.news-container,
+.header-inner,
+.search-bar,
+.filter-options,
+.category-selector {
+  background-color: rgba(15, 15, 15, 0.3) !important; /* Exactly as specified */
+  backdrop-filter: blur(10px) !important; /* Exactly as specified */
+  -webkit-backdrop-filter: blur(10px) !important;
 }
