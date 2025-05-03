@@ -2,13 +2,13 @@
 @import 'inter-ui/inter.css';
 
 :root {
-  /* Color scheme - Light Mode */
+  /* Color scheme - Light Mode - Updated to match Terminal Space branding */
   --color-background: #f8f9fa;
   --color-surface: #ffffff;
-  --color-primary: #3d5afe;
-  --color-primary-light: #8187ff;
-  --color-primary-dark: #0031ca;
-  --color-secondary: #00c9ff;
+  --color-primary: #FFD700; /* Terminal Space's gold/yellow color */
+  --color-primary-light: #FFDF33;
+  --color-primary-dark: #E6C200;
+  --color-secondary: #121212; /* Terminal Space's dark accent */
   --color-text-primary: #212121;
   --color-text-secondary: #5a5a5a;
   --color-text-tertiary: #757575;
@@ -74,14 +74,14 @@
   --animation-pulse: pulse 1.5s infinite;
 }
 
-/* Dark Mode Colors */
+/* Dark Mode Colors - Updated to match Terminal Space branding */
 .dark-mode {
-  --color-background: #121212;
+  --color-background: #121212; /* Terminal Space's dark background */
   --color-surface: #1e1e1e;
-  --color-primary: #5767ff;
-  --color-primary-light: #8187ff;
-  --color-primary-dark: #4146b5;
-  --color-secondary: #00b8d4;
+  --color-primary: #FFD700; /* Keep gold color consistent in dark mode */
+  --color-primary-light: #FFDF33;
+  --color-primary-dark: #E6C200;
+  --color-secondary: #FFFFFF; /* Invert secondary color for dark mode */
   --color-text-primary: #ffffff;
   --color-text-secondary: #e0e0e0;
   --color-text-tertiary: #aaaaaa;
@@ -236,7 +236,7 @@ button:focus, .button:focus {
 }
 
 .button-secondary:hover {
-  background: rgba(61, 90, 254, 0.1);
+  background: rgba(255, 215, 0, 0.1);
   color: var(--color-primary-dark);
 }
 
@@ -247,7 +247,7 @@ button:focus, .button:focus {
 }
 
 .button-text:hover {
-  background: rgba(61, 90, 254, 0.1);
+  background: rgba(255, 215, 0, 0.1);
 }
 
 .button-icon {
@@ -276,7 +276,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(61, 90, 254, 0.2);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
 }
 
 /* Card styles */
