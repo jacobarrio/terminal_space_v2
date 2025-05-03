@@ -4,7 +4,9 @@ import Home from './pages/Home';
 import ArticleDetail from './pages/ArticleDetail';
 import AnalysisView from './pages/AnalysisView';
 import Header from './components/Header';
+import ImmersiveBackground from './components/ImmersiveBackground';
 import './styles/GlobalStyles.css';
+import './styles/GoldInteractiveElements.css';
 
 const App = () => {
   // State to manage dark mode
@@ -29,6 +31,9 @@ const App = () => {
   return (
     <Router>
       <div className="app-container">
+        {/* Immersive background that appears on all pages */}
+        <ImmersiveBackground />
+        
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <main className="content-container">
           <Routes>

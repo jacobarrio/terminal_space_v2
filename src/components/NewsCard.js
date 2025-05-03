@@ -119,7 +119,7 @@ const NewsCard = ({
         )}
         
         <h2 className="news-title">
-          <Link to={`/article/${getArticleId(article.url)}`}>{article.title}</Link>
+          <Link to={`/article/${getArticleId(article.url)}`} className="gold-interactive">{article.title}</Link>
         </h2>
         
         {article.image && (
@@ -148,12 +148,12 @@ const NewsCard = ({
         
         <div className="news-actions">
           <div>
-            <Link to={`/article/${getArticleId(article.url)}`} className="read-more-link">
+            <Link to={`/article/${getArticleId(article.url)}`} className="read-more-link gold-interactive gold-cta">
               Read Full Article <i data-feather="external-link" className="icon-small"></i>
             </Link>
             
             <button 
-              className={`toggle-view-button ${isExpanded ? 'expanded' : ''}`} 
+              className={`toggle-view-button ${isExpanded ? 'expanded' : ''} gold-interactive`} 
               onClick={toggleView}
               aria-label={isExpanded ? "Show less" : "Show more"}
             >
@@ -163,12 +163,12 @@ const NewsCard = ({
           </div>
           
           <div className="flex gap-sm">
-            <Link to={`/analysis/${getArticleId(article.url)}`} className="analysis-link">
+            <Link to={`/analysis/${getArticleId(article.url)}`} className="analysis-link gold-interactive">
               Analysis <i data-feather="bar-chart-2" className="icon-small"></i>
             </Link>
             
             <button 
-              className="share-button" 
+              className="share-button gold-interactive" 
               onClick={handleShare}
               aria-label="Share this article"
             >

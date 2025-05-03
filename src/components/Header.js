@@ -29,18 +29,18 @@ const Header = ({ darkMode, toggleDarkMode }) => {
     <header className="header">
       <div className="header-container">
         <div className="logo-container">
-          <Link to="/" className="logo" onClick={closeMenu}>
+          <Link to="/" className="logo gold-interactive" onClick={closeMenu}>
             <TerminalSpaceLogo className="logo-image" aria-label="Terminal Space Logo" />
             <div className="logo-text">
               <span className="logo-terminal">Terminal</span>
-              <span className="logo-space">Space</span>
+              <span className="logo-space gold-shimmer">Space</span>
             </div>
           </Link>
         </div>
         
         <div className="mobile-icons">
           <button 
-            className="dark-mode-toggle" 
+            className="dark-mode-toggle gold-interactive" 
             onClick={toggleDarkMode} 
             aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
@@ -48,7 +48,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
           </button>
           
           <button 
-            className="menu-toggle" 
+            className="menu-toggle gold-interactive" 
             onClick={toggleMenu} 
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -59,10 +59,10 @@ const Header = ({ darkMode, toggleDarkMode }) => {
         <nav className={`main-nav ${isMenuOpen ? 'menu-open' : ''}`}>
           <ul className="nav-list">
             <li className="nav-item">
-              <Link to="/" onClick={closeMenu}>Home</Link>
+              <Link to="/" onClick={closeMenu} className="gold-underline">Home</Link>
             </li>
             <li className="nav-item">
-              <Link to="/compare" onClick={closeMenu}>Compare Articles</Link>
+              <Link to="/compare" onClick={closeMenu} className="gold-underline">Compare Articles</Link>
             </li>
             <li className="nav-item search-container">
               <form onSubmit={handleSearch}>
@@ -71,16 +71,16 @@ const Header = ({ darkMode, toggleDarkMode }) => {
                   placeholder="Search news..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="search-input"
+                  className="search-input gold-interactive"
                 />
-                <button type="submit" className="search-button" aria-label="Search">
+                <button type="submit" className="search-button gold-interactive" aria-label="Search">
                   <i data-feather="search"></i>
                 </button>
               </form>
             </li>
             <li className="nav-item desktop-only">
               <button 
-                className="dark-mode-toggle" 
+                className="dark-mode-toggle gold-interactive" 
                 onClick={toggleDarkMode} 
                 aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
               >
