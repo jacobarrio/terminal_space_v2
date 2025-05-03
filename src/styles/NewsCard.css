@@ -53,6 +53,105 @@
   margin-bottom: var(--space-sm);
 }
 
+/* Badge styles for analysis tags */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 12px;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all var(--transition-fast);
+  animation: badgePulse 2s infinite;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Political leaning badges */
+.badge-left {
+  background-color: rgba(40, 96, 144, 0.6);
+  color: #b6e0ff;
+  border-color: rgba(88, 157, 220, 0.3);
+}
+
+.badge-centerleft, .badge-center-left {
+  background-color: rgba(70, 130, 180, 0.6);
+  color: #d0e8ff;
+  border-color: rgba(108, 166, 220, 0.3);
+}
+
+.badge-center {
+  background-color: rgba(85, 85, 85, 0.6);
+  color: #e0e0e0;
+  border-color: rgba(150, 150, 150, 0.3);
+}
+
+.badge-centerright, .badge-center-right {
+  background-color: rgba(180, 90, 90, 0.6);
+  color: #ffd0d0;
+  border-color: rgba(220, 120, 120, 0.3);
+}
+
+.badge-right {
+  background-color: rgba(160, 50, 50, 0.6);
+  color: #ffb6b6;
+  border-color: rgba(200, 80, 80, 0.3);
+}
+
+/* Tone badges */
+.badge-neutral {
+  background-color: rgba(100, 100, 100, 0.6);
+  color: #e0e0e0;
+  border-color: rgba(140, 140, 140, 0.3);
+}
+
+.badge-positive {
+  background-color: rgba(40, 140, 80, 0.6);
+  color: #b6ffcf;
+  border-color: rgba(80, 180, 120, 0.3);
+}
+
+.badge-negative {
+  background-color: rgba(180, 50, 50, 0.6);
+  color: #ffb6b6;
+  border-color: rgba(220, 80, 80, 0.3);
+}
+
+.badge-factual {
+  background-color: rgba(70, 130, 180, 0.6);
+  color: #d0e8ff;
+  border-color: rgba(110, 170, 220, 0.3);
+}
+
+.badge-opinion {
+  background-color: rgba(180, 120, 50, 0.6);
+  color: #ffd6b6;
+  border-color: rgba(220, 160, 90, 0.3);
+}
+
+/* Badge pulse animation */
+@keyframes badgePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+  }
+}
+
 /* Article metadata */
 .news-meta {
   display: flex;
