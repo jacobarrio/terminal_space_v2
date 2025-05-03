@@ -250,6 +250,9 @@ const Home = () => {
               className="bg-image"
             />
             <div className="bg-overlay"></div>
+            {/* MidJourney image animated overlay */}
+            <div className="animated-overlay"></div>
+            <div className="particle-overlay"></div>
           </div>
           
           <div className="bg-content page-header-background">

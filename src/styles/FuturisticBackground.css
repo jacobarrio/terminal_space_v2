@@ -44,6 +44,65 @@
   -webkit-backdrop-filter: blur(8px);
 }
 
+/* Animated MidJourney overlay */
+.animated-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Above the background, below content */
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 215, 0, 0.3) 0%,
+    rgba(255, 215, 0, 0.1) 30%,
+    transparent 70%
+  );
+  background-size: 200% 200%;
+  background-position: center;
+  filter: blur(4px) brightness(1.2); /* Soft blur and glow */
+  opacity: 0.4; /* Subtle overlay */
+  pointer-events: none; /* Allow clicking through the overlay */
+  animation: scrollDown 20s linear infinite, floatParticles 5s ease-in-out infinite; /* Animations */
+  transition: opacity 1000ms ease-in-out; /* Fade in animation */
+}
+
+/* Animated particle overlay */
+.particle-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; /* Above the background, below content */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 215, 0, 0.05) 0%,
+    transparent 50%,
+    rgba(255, 215, 0, 0.08) 100%
+  );
+  opacity: 0;
+  animation: fadeIn 1000ms ease-in-out forwards, floatParticles 8s ease-in-out infinite;
+}
+
+/* Gold particles effect as a separate element */
+.particle-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0) 5%),
+    radial-gradient(circle at 70% 20%, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0) 5%),
+    radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0) 5%),
+    radial-gradient(circle at 80% 60%, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0) 5%);
+  background-size: 200% 200%;
+  animation: floatParticles 12s ease-in-out infinite;
+  z-index: 1;
+}
+
 /* Content container inside the background */
 .bg-content {
   position: relative;
@@ -69,6 +128,45 @@
   animation: bg-pulse 8s ease-in-out infinite;
 }
 
+/* Animation keyframes for scrolling effect */
+@keyframes scrollDown {
+  0% {
+    background-position: center 0%;
+  }
+  100% {
+    background-position: center 100%;
+  }
+}
+
+/* Animation keyframes for fade in effect */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Particles floating animation */
+@keyframes floatParticles {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-2px) translateX(2px);
+  }
+  50% {
+    transform: translateY(-4px) translateX(0);
+  }
+  75% {
+    transform: translateY(-2px) translateX(-2px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
 /* Media queries for responsive adjustments */
 @media (max-width: 768px) {
   .bg-image {
@@ -78,6 +176,10 @@
   .bg-overlay {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+  }
+  
+  .animated-overlay {
+    opacity: 0.3; /* Slightly more subtle on mobile */
   }
   
   @keyframes bg-pulse {
