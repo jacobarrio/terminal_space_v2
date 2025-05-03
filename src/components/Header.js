@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
-import terminalSpaceLogo from '../assets/terminal_space_logo.png';
+import TerminalSpaceLogo from './TerminalSpaceLogo';
 
 const Header = ({ darkMode, toggleDarkMode }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,11 +30,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
       <div className="header-container">
         <div className="logo-container">
           <Link to="/" className="logo" onClick={closeMenu}>
-            <img 
-              src={terminalSpaceLogo} 
-              alt="Terminal Space Logo" 
-              className="logo-image"
-            />
+            <TerminalSpaceLogo className="logo-image" aria-label="Terminal Space Logo" />
             <div className="logo-text">
               <span className="logo-terminal">Terminal</span>
               <span className="logo-space">Space</span>
