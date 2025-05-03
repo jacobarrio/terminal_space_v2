@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import AnalysisCard from '../components/AnalysisCard';
+import AnimatedOverlay from '../components/AnimatedOverlay';
 import { getArticleById } from '../services/gnewsService';
 import { summarizeArticle, analyzeArticle, getBiasToneAnalysis } from '../services/openaiService';
 import '../styles/ArticleDetail.css';
@@ -152,6 +153,10 @@ const ArticleDetail = () => {
 
   return (
     <div className="article-detail-container">
+      <div className="header-background">
+        <AnimatedOverlay />
+      </div>
+      
       <div className="article-actions-top">
         <Link to="/" className="back-button">
           <i data-feather="arrow-left"></i> Back to News

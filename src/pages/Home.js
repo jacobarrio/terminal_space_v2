@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import NewsCard from '../components/NewsCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
+import AnimatedOverlay from '../components/AnimatedOverlay';
 import { fetchTopNews, searchNews } from '../services/gnewsService';
 import '../styles/Home.css';
 
@@ -250,9 +251,8 @@ const Home = () => {
               className="bg-image"
             />
             <div className="bg-overlay"></div>
-            {/* MidJourney image animated overlay */}
-            <div className="animated-overlay"></div>
-            <div className="particle-overlay"></div>
+            {/* MidJourney image animated overlay component */}
+            <AnimatedOverlay />
           </div>
           
           <div className="bg-content page-header-background">
