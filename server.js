@@ -83,41 +83,128 @@ app.get('/api/news/:articleId', async (req, res) => {
       return res.status(400).json({ error: 'Invalid article ID format' });
     }
     
-    // Extract domain or title from URL to use as search term
-    let searchTerm = originalUrl;
+    // Extract meaningful search terms from the URL
+    let searchTerms = [];
     try {
-      // If it's a URL, try to extract a more meaningful search term
       if (originalUrl.startsWith('http')) {
         const url = new URL(originalUrl);
-        // Use hostname or pathname as search term
-        searchTerm = url.hostname.replace(/^www\./, '');
-        console.log('Extracted search term:', searchTerm);
+        
+        // Extract meaningful terms from the path
+        const pathSegments = url.pathname.split('/').filter(segment => 
+          segment.length > 3 && 
+          !segment.match(/^\d+$/) && // Skip numeric segments
+          !['www', 'com', 'org', 'net'].includes(segment) // Skip common TLDs
+        );
+        
+        // Get words from path segments
+        pathSegments.forEach(segment => {
+          // Split by non-alphanumeric characters and filter out short terms
+          const words = segment.split(/[^a-zA-Z0-9]/).filter(word => word.length > 3);
+          searchTerms.push(...words);
+        });
+        
+        // If we couldn't extract good terms from the path, use the hostname
+        if (searchTerms.length === 0) {
+          const domain = url.hostname.replace(/^www\./, '').split('.')[0];
+          if (domain.length > 3) {
+            searchTerms.push(domain);
+          }
+        }
       }
     } catch (e) {
-      console.log('URL parsing failed, using original URL as search term:', originalUrl);
+      console.log('URL parsing failed:', e.message);
     }
     
-    console.log('Searching for article with term:', searchTerm);
+    // If we couldn't extract search terms, use a fallback approach
+    if (searchTerms.length === 0) {
+      // Try to extract any words from the URL
+      const words = originalUrl.match(/[a-zA-Z]{4,}/g);
+      searchTerms = words || ['news'];
+    }
     
-    // Fetch the specific article
-    const response = await axios.get(`${GNEWS_BASE_URL}/search`, {
-      params: {
-        token: GNEWS_API_KEY,
-        q: searchTerm,
-        lang: 'en',
-        max: 1
+    // Limit to the most relevant terms (avoid using the entire path which can cause API errors)
+    searchTerms = searchTerms.slice(0, 3);
+    const searchQuery = searchTerms.join(' ');
+    
+    console.log('Using search query:', searchQuery);
+    
+    try {
+      // Fetch articles based on the extracted search terms
+      const response = await axios.get(`${GNEWS_BASE_URL}/search`, {
+        params: {
+          token: GNEWS_API_KEY,
+          q: searchQuery,
+          lang: 'en',
+          max: 5 // Get a few results to increase chances of finding a matching article
+        }
+      });
+      
+      if (response.data.articles && response.data.articles.length > 0) {
+        console.log('Found articles:', response.data.articles.length);
+        
+        // Try to find the exact article if possible by comparing URLs
+        const exactMatch = response.data.articles.find(article => {
+          const articleUrl = article.url || '';
+          return originalUrl.includes(articleUrl) || articleUrl.includes(originalUrl);
+        });
+        
+        if (exactMatch) {
+          console.log('Found exact match article:', exactMatch.title);
+          return res.json(exactMatch);
+        }
+        
+        // Otherwise return the first result
+        console.log('Using first result article:', response.data.articles[0].title);
+        res.json(response.data.articles[0]);
+      } else {
+        console.log('No articles found for search query:', searchQuery);
+        
+        // Try a more general query as fallback
+        const fallbackResponse = await axios.get(`${GNEWS_BASE_URL}/top-headlines`, {
+          params: {
+            token: GNEWS_API_KEY,
+            lang: 'en',
+            max: 1
+          }
+        });
+        
+        if (fallbackResponse.data.articles && fallbackResponse.data.articles.length > 0) {
+          console.log('Using fallback top headline article');
+          res.json(fallbackResponse.data.articles[0]);
+        } else {
+          res.status(404).json({ error: 'No articles found' });
+        }
       }
-    });
-    
-    if (response.data.articles && response.data.articles.length > 0) {
-      console.log('Found article:', response.data.articles[0].title);
-      res.json(response.data.articles[0]);
-    } else {
-      console.log('No articles found for search term:', searchTerm);
-      res.status(404).json({ error: 'Article not found' });
+    } catch (apiError) {
+      console.error('GNews API error:', apiError.message);
+      
+      // Try a more general endpoint as fallback
+      try {
+        console.log('Trying fallback to top headlines');
+        const fallbackResponse = await axios.get(`${GNEWS_BASE_URL}/top-headlines`, {
+          params: {
+            token: GNEWS_API_KEY,
+            lang: 'en',
+            max: 1
+          }
+        });
+        
+        if (fallbackResponse.data.articles && fallbackResponse.data.articles.length > 0) {
+          console.log('Using fallback top headline article');
+          res.json(fallbackResponse.data.articles[0]);
+        } else {
+          res.status(404).json({ error: 'No articles found' });
+        }
+      } catch (fallbackError) {
+        console.error('Fallback API error:', fallbackError.message);
+        res.status(502).json({ 
+          error: 'Failed to retrieve articles from news service',
+          details: fallbackError.message 
+        });
+      }
     }
   } catch (error) {
-    console.error('Error fetching article:', error.message);
+    console.error('Error in article retrieval process:', error.message);
     res.status(500).json({ 
       error: 'Failed to fetch article',
       details: error.message 
