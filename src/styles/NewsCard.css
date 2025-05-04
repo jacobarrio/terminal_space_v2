@@ -400,6 +400,7 @@
   backdrop-filter: blur(10px); /* Exactly as specified */
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  position: relative;
 }
 
 .share-button:hover {
@@ -412,6 +413,105 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   color: #FFD700;
   filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+}
+
+/* Share options dropdown */
+.share-options {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 180px;
+  background: rgba(15, 15, 15, 0.8);
+  border-radius: var(--radius-md);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 215, 0, 0.2);
+  overflow: hidden;
+  z-index: 10;
+  animation: fadeInUp 0.3s forwards;
+  transform-origin: top right;
+  padding: 8px 0;
+}
+
+/* Position the parent container relatively for absolute positioning of dropdown */
+.news-actions .flex.gap-sm {
+  position: relative;
+}
+
+.share-option-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 15px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.share-option-button:hover {
+  background: rgba(255, 215, 0, 0.15);
+  color: var(--color-primary);
+  transform: translateX(2px);
+  box-shadow: inset 0 0 0 1px rgba(255, 215, 0, 0.2);
+}
+
+.share-option-button i {
+  color: var(--color-primary);
+  transition: transform var(--transition-fast);
+}
+
+.share-option-button:hover i {
+  transform: scale(1.2);
+}
+
+/* Share success notification */
+.share-success {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 150, 50, 0.85);
+  color: white;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-md);
+  animation: fadeInUp 0.3s forwards, fadeOut 0.3s 2.5s forwards;
+  z-index: 10;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+}
+
+.share-success i {
+  color: white;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 /* Expanded content view */

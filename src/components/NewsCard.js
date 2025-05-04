@@ -45,6 +45,9 @@ const NewsCard = ({
     return source.name.replace(/\.(com|org|net)$/i, '');
   };
 
+  // State for share success notifications
+  const [shareSuccess, setShareSuccess] = useState(false);
+  
   // Handle share functionality
   const handleShare = () => {
     // Check if native sharing is available
@@ -53,6 +56,11 @@ const NewsCard = ({
         title: article.title,
         text: getPreview(article.content || article.description),
         url: article.url,
+      })
+      .then(() => {
+        // Show success notification
+        setShareSuccess(true);
+        setTimeout(() => setShareSuccess(false), 3000);
       })
       .catch(error => {
         console.error('Error sharing:', error);
@@ -66,18 +74,46 @@ const NewsCard = ({
   // Fallback for browsers that don't support the Share API
   const fallbackShare = () => {
     setShowShareOptions(!showShareOptions);
+    
+    // Auto-hide the share options after 5 seconds
+    if (!showShareOptions) {
+      setTimeout(() => {
+        setShowShareOptions(false);
+      }, 5000);
+    }
   };
 
   // Copy link to clipboard
   const copyToClipboard = () => {
     navigator.clipboard.writeText(article.url)
       .then(() => {
-        alert('Link copied to clipboard!');
+        setShareSuccess(true);
+        setTimeout(() => setShareSuccess(false), 3000);
         setShowShareOptions(false);
       })
       .catch(err => {
         console.error('Failed to copy link:', err);
       });
+  };
+  
+  // Share to social media platforms
+  const shareToTwitter = () => {
+    const text = `${article.title} | via Terminal Space`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(article.url)}`;
+    window.open(twitterUrl, '_blank');
+    setShowShareOptions(false);
+  };
+  
+  const shareToFacebook = () => {
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(article.url)}`;
+    window.open(facebookUrl, '_blank');
+    setShowShareOptions(false);
+  };
+  
+  const shareToLinkedIn = () => {
+    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(article.url)}`;
+    window.open(linkedInUrl, '_blank');
+    setShowShareOptions(false);
   };
 
   // Toggle expanded view
@@ -177,10 +213,26 @@ const NewsCard = ({
             
             {/* Share options dropdown */}
             {showShareOptions && (
-              <div className="share-options">
-                <button onClick={copyToClipboard} className="button-text">
+              <div className="share-options glass-panel">
+                <button onClick={copyToClipboard} className="share-option-button gold-interactive">
                   <i data-feather="clipboard" className="icon-small"></i> Copy Link
                 </button>
+                <button onClick={shareToTwitter} className="share-option-button gold-interactive">
+                  <i data-feather="twitter" className="icon-small"></i> X (Twitter)
+                </button>
+                <button onClick={shareToFacebook} className="share-option-button gold-interactive">
+                  <i data-feather="facebook" className="icon-small"></i> Facebook
+                </button>
+                <button onClick={shareToLinkedIn} className="share-option-button gold-interactive">
+                  <i data-feather="linkedin" className="icon-small"></i> LinkedIn
+                </button>
+              </div>
+            )}
+            
+            {/* Share success notification */}
+            {shareSuccess && (
+              <div className="share-success glass-panel">
+                <i data-feather="check-circle" className="icon-small"></i> Shared successfully!
               </div>
             )}
           </div>
