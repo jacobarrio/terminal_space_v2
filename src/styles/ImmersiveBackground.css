@@ -48,14 +48,15 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.3; /* Reduced opacity as specified */
+  opacity: 0.3; /* Reduced opacity as specified in requirements (0.25-0.35) */
   filter: blur(3px);
   animation: pulse-glow 8s ease-in-out infinite;
   background-blend-mode: screen;
-  box-shadow: 0 0 150px 30px rgba(255, 215, 0, 0.1);
+  box-shadow: 0 0 150px 50px rgba(255, 215, 0, 0.15);
   border-radius: 50%;
   position: relative;
   overflow: hidden;
+  transform-origin: center;
 }
 
 .midjourney-circle::before {
@@ -79,11 +80,75 @@
   bottom: 0;
   background: radial-gradient(
     ellipse at center,
-    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.15) 0%,
     transparent 60%
   );
   z-index: 2;
   animation: gentle-spin 30s linear infinite;
+}
+
+/* Additional glow layers for the circle */
+.circle-outer-glow {
+  position: absolute;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 215, 0, 0.1) 0%,
+    rgba(255, 215, 0, 0.05) 30%,
+    transparent 70%
+  );
+  animation: pulse-outer 10s ease-in-out infinite;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.circle-inner-glow {
+  position: absolute;
+  width: 65%;
+  height: 65%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 215, 0, 0.03) 40%,
+    transparent 70%
+  );
+  animation: pulse-inner 7s ease-in-out infinite;
+  opacity: 0.5;
+  z-index: 1;
+  mix-blend-mode: screen;
+}
+
+@keyframes pulse-outer {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulse-inner {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
 }
 
 @keyframes gentle-spin {
@@ -99,17 +164,20 @@
   0% {
     opacity: 0.25;
     transform: scale(0.98);
-    box-shadow: 0 0 120px 10px rgba(255, 215, 0, 0.05);
+    box-shadow: 0 0 120px 20px rgba(255, 215, 0, 0.08);
+    filter: blur(3px) brightness(0.9);
   }
   50% {
     opacity: 0.35;
     transform: scale(1.02);
-    box-shadow: 0 0 150px 30px rgba(255, 215, 0, 0.15);
+    box-shadow: 0 0 180px 50px rgba(255, 215, 0, 0.18);
+    filter: blur(3px) brightness(1.1);
   }
   100% {
     opacity: 0.25;
     transform: scale(0.98);
-    box-shadow: 0 0 120px 10px rgba(255, 215, 0, 0.05);
+    box-shadow: 0 0 120px 20px rgba(255, 215, 0, 0.08);
+    filter: blur(3px) brightness(0.9);
   }
 }
 
@@ -199,15 +267,34 @@
   pointer-events: none;
   z-index: -1;
   background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 8%),
-    radial-gradient(circle at 75% 60%, rgba(255, 215, 0, 0.05) 0%, transparent 8%),
-    radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 8%);
+    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.08) 0%, transparent 10%),
+    radial-gradient(circle at 75% 60%, rgba(255, 215, 0, 0.08) 0%, transparent 10%),
+    radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 10%),
+    radial-gradient(circle at 85% 20%, rgba(255, 215, 0, 0.06) 0%, transparent 12%),
+    radial-gradient(circle at 10% 60%, rgba(255, 215, 0, 0.06) 0%, transparent 12%);
   animation: shimmer 20s infinite linear;
+  mix-blend-mode: screen;
 }
 
 @keyframes shimmer {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 100%; }
+  0% { 
+    background-position: 0% 0%; 
+    background-size: 100% 100%;
+  }
+  25% { 
+    background-size: 105% 105%;
+  }
+  50% { 
+    background-position: 10% 50%; 
+    background-size: 100% 100%;
+  }
+  75% { 
+    background-size: 95% 95%;
+  }
+  100% { 
+    background-position: 0% 100%; 
+    background-size: 100% 100%;
+  }
 }
 
 /* Headline text glow */

@@ -22,12 +22,14 @@ const ImmersiveBackground = () => {
       
       {/* Central glowing circle element */}
       <div className="midjourney-circle-container">
+        <div className="circle-outer-glow"></div>
         <div 
           className="midjourney-circle"
           style={{
             backgroundImage: `url(${midJourneyCircleImage})`,
           }}
         ></div>
+        <div className="circle-inner-glow"></div>
       </div>
       
       {/* Gold particle shimmer layer */}
