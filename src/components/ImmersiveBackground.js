@@ -17,11 +17,14 @@ const ImmersiveBackground = () => {
         className="midjourney-background"
         style={{
           backgroundImage: `url(${midJourneyCorridorImage})`,
+          transform: `translateY(calc(var(--scroll-y) * 0.05))`, // Subtle parallax effect
         }}
       ></div>
       
       {/* Central glowing circle element */}
-      <div className="midjourney-circle-container">
+      <div className="midjourney-circle-container" style={{
+        transform: `translateY(calc(var(--scroll-y) * -0.03))`, // Subtle counter-parallax effect
+      }}>
         <div className="circle-outer-glow"></div>
         <div 
           className="midjourney-circle"
@@ -32,8 +35,10 @@ const ImmersiveBackground = () => {
         <div className="circle-inner-glow"></div>
       </div>
       
-      {/* Gold particle shimmer layer */}
-      <div className="particles"></div>
+      {/* Gold particle shimmer layer with parallax effect */}
+      <div className="particles" style={{
+        transform: `translateY(calc(var(--scroll-y) * -0.02))`, // Subtle floating effect on scroll
+      }}></div>
       
       {/* Animated vertical particles */}
       <div className="vertical-particles">

@@ -29,6 +29,17 @@ const App = () => {
     setDarkMode(prev => !prev);
   };
 
+  // Listen for scroll events to apply parallax effects
+  useEffect(() => {
+    const handleScroll = () => {
+      // Apply any scroll-based effects here if needed
+      document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <Router>
       <div className="app-container">
