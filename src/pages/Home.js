@@ -5,6 +5,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import AnimatedOverlay from '../components/AnimatedOverlay';
 import AISummaryView from '../components/AISummaryView';
+import AIInfoModal from '../components/AIInfoModal';
 import { fetchTopNews, searchNews } from '../services/gnewsService';
 import '../styles/Home.css';
 import '../styles/ModernHeader.css';
@@ -21,6 +22,7 @@ const Home = () => {
   const [cachedArticles, setCachedArticles] = useState({});
   const [viewPreference, setViewPreference] = useState('summary');
   const [showAISummary, setShowAISummary] = useState(false); // Toggle for AI Summary View
+  const [showAIInfoModal, setShowAIInfoModal] = useState(false); // State for AI Info modal
   
   const searchInputRef = useRef(null);
   const cachedArticlesRef = useRef({});
@@ -257,28 +259,17 @@ const Home = () => {
             {searchQuery ? (
               <h1 className="page-title">Search Results: "{searchQuery}"</h1>
             ) : (
-              <h1 className="page-title">Latest News</h1>
+              <div className="title-with-button">
+                <h1 className="page-title">Latest News</h1>
+                <button 
+                  className="ai-info-button gold-interactive"
+                  onClick={() => setShowAIInfoModal(true)}
+                  aria-label="Learn how Terminal Space uses AI"
+                >
+                  AI Summary
+                </button>
+              </div>
             )}
-              
-            <div className="header-actions">
-              <button 
-                className={`view-toggle-button ${showAISummary ? 'active' : ''}`}
-                onClick={toggleAISummary}
-                aria-label={showAISummary ? 'Show All Articles' : 'Show AI Summary'}
-              >
-                <i data-feather={showAISummary ? 'grid' : 'cpu'}></i>
-                <span className="hidden-mobile">{showAISummary ? 'All Articles' : 'AI Summary'}</span>
-              </button>
-              
-              <button 
-                className="view-toggle-button"
-                onClick={toggleViewPreference}
-                aria-label={`Switch to ${viewPreference === 'summary' ? 'full' : 'summary'} view`}
-              >
-                <i data-feather={viewPreference === 'summary' ? 'maximize-2' : 'minimize-2'}></i>
-                <span className="hidden-mobile">{viewPreference === 'summary' ? 'Full View' : 'Summary View'}</span>
-              </button>
-            </div>
           </div>
           
           <div className="header-controls">
@@ -356,6 +347,12 @@ const Home = () => {
           )}
         </>
       )}
+      
+      {/* AI Info Modal */}
+      <AIInfoModal 
+        isOpen={showAIInfoModal} 
+        onClose={() => setShowAIInfoModal(false)} 
+      />
     </div>
   );
 };
