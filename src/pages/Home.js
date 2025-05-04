@@ -4,9 +4,11 @@ import NewsCard from '../components/NewsCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
 import AnimatedOverlay from '../components/AnimatedOverlay';
+import AISummaryView from '../components/AISummaryView';
 import { fetchTopNews, searchNews } from '../services/gnewsService';
 import '../styles/Home.css';
 import '../styles/ModernHeader.css';
+import '../styles/AISummaryView.css';
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
@@ -18,6 +20,7 @@ const Home = () => {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [cachedArticles, setCachedArticles] = useState({});
   const [viewPreference, setViewPreference] = useState('summary');
+  const [showAISummary, setShowAISummary] = useState(false); // Toggle for AI Summary View
   
   const searchInputRef = useRef(null);
   const cachedArticlesRef = useRef({});
@@ -187,6 +190,11 @@ const Home = () => {
   const toggleViewPreference = () => {
     setViewPreference(viewPreference === 'summary' ? 'full' : 'summary');
   };
+  
+  // Toggle AI Summary view
+  const toggleAISummary = () => {
+    setShowAISummary(!showAISummary);
+  };
 
   // Render category filters with modern pill design
   const renderCategoryFilters = () => {
@@ -254,6 +262,15 @@ const Home = () => {
               
             <div className="header-actions">
               <button 
+                className={`view-toggle-button ${showAISummary ? 'active' : ''}`}
+                onClick={toggleAISummary}
+                aria-label={showAISummary ? 'Show All Articles' : 'Show AI Summary'}
+              >
+                <i data-feather={showAISummary ? 'grid' : 'cpu'}></i>
+                <span className="hidden-mobile">{showAISummary ? 'All Articles' : 'AI Summary'}</span>
+              </button>
+              
+              <button 
                 className="view-toggle-button"
                 onClick={toggleViewPreference}
                 aria-label={`Switch to ${viewPreference === 'summary' ? 'full' : 'summary'} view`}
@@ -301,35 +318,42 @@ const Home = () => {
             </div>
           )}
           
-          <div className="news-cards-grid">
-            {/* Show live articles first */}
-            {articles.map((article, index) => (
-              <NewsCard 
-                key={article.url || index} 
-                article={article}
-                summary={summarized[article.url]}
-                isSearchResult={!!searchQuery}
-                analysis={null} // Will be implemented in the LLM improvements section
-                className="stagger-item"
-              />
-            ))}
-            
-            {/* Show cached articles when offline */}
-            {articles.length === 0 && 
-              Object.values(cachedArticles)
-                .sort((a, b) => b.cached - a.cached) // Most recently cached first
-                .map((article, index) => (
-                  <NewsCard 
-                    key={article.url || index} 
-                    article={article}
-                    summary={summarized[article.url]}
-                    isSearchResult={false}
-                    analysis={null}
-                    className="stagger-item cached-item"
-                  />
-                ))
-            }
-          </div>
+          {/* Toggle between AI Summary view and regular news cards */}
+          {showAISummary ? (
+            <div className="ai-summary-container">
+              <AISummaryView articles={articles.length > 0 ? articles : Object.values(cachedArticles)} />
+            </div>
+          ) : (
+            <div className="news-cards-grid">
+              {/* Show live articles first */}
+              {articles.map((article, index) => (
+                <NewsCard 
+                  key={article.url || index} 
+                  article={article}
+                  summary={summarized[article.url]}
+                  isSearchResult={!!searchQuery}
+                  analysis={null} // Will be implemented in the LLM improvements section
+                  className="stagger-item"
+                />
+              ))}
+              
+              {/* Show cached articles when offline */}
+              {articles.length === 0 && 
+                Object.values(cachedArticles)
+                  .sort((a, b) => b.cached - a.cached) // Most recently cached first
+                  .map((article, index) => (
+                    <NewsCard 
+                      key={article.url || index} 
+                      article={article}
+                      summary={summarized[article.url]}
+                      isSearchResult={false}
+                      analysis={null}
+                      className="stagger-item cached-item"
+                    />
+                  ))
+              }
+            </div>
+          )}
         </>
       )}
     </div>
