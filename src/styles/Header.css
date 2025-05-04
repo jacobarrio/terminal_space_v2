@@ -8,6 +8,7 @@
   z-index: var(--z-index-above);
   margin-bottom: var(--space-lg);
   transition: background-color var(--transition-medium), box-shadow var(--transition-medium);
+  animation: fadeInDown 0.5s;
 }
 
 .header-container {
@@ -48,6 +49,7 @@
   transition: transform var(--transition-fast), filter var(--transition-fast);
   filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
   margin-left: 0.5rem; /* Add left padding to prevent edge crowding */
+  animation: shimmer 3s infinite;
 }
 
 .logo-text {
@@ -277,5 +279,30 @@
     visibility: visible !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* Animation for header appearing */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Shimmer animation for logo */
+@keyframes shimmer {
+  0% {
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
+  }
+  100% {
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
   }
 }

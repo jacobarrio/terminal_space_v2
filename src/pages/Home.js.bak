@@ -74,14 +74,14 @@ const Home = () => {
   // Initial load and reload when search or category changes
   useEffect(() => {
     loadNews();
-  }, [searchQuery, category, loadNews]);
+  }, [searchQuery, category]);
 
   // When feather icons are in the DOM, replace them with SVG
   useEffect(() => {
     if (window.feather) {
       window.feather.replace();
     }
-  }, [articles, loading, showMobileFilters, viewPreference, showAISummary]);
+  }, [articles, loading, showMobileFilters, viewPreference]);
 
   // Initialize searchInput from URL query param
   useEffect(() => {
