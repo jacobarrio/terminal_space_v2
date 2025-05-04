@@ -1,8 +1,8 @@
 import React from 'react';
 import '../styles/ImmersiveBackground.css';
 
-// Import the MidJourney image
-import midJourneyImage from '../../attached_assets/IMG_1858.jpeg';
+// Import the MidJourney image - trying a different image
+import midJourneyImage from '../../attached_assets/IMG_1850.jpeg';
 
 /**
  * ImmersiveBackground - Creates a fullscreen fixed background
