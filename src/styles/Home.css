@@ -178,25 +178,71 @@
   font-size: var(--font-size-sm);
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
   backdrop-filter: blur(4px); /* Glass-like effect */
   -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.view-toggle-button::after, .filter-toggle-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(255, 215, 0, 0.5) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  transform: scale(0.5);
 }
 
 .view-toggle-button:hover, .filter-toggle-button:hover {
   background-color: rgba(255, 215, 0, 0.15);
   color: var(--color-primary);
   border-color: var(--color-primary);
-  transform: translateY(-1px); /* Slight lift on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px) scale(1.03); /* Slight lift and grow on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+.view-toggle-button:hover::after, .filter-toggle-button:hover::after {
+  opacity: 0.3;
+  transform: scale(1.5);
 }
 
 .view-toggle-button.active, .filter-toggle-button.active {
   background-color: var(--color-primary);
   color: #0F0F0F; /* Dark text on yellow background */
   border-color: var(--color-primary);
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3); /* Gold glow */
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4); /* Enhanced gold glow */
+  transform: translateY(-1px) scale(1.03);
+  font-weight: 600;
+}
+
+.view-toggle-button.active::after, .filter-toggle-button.active::after {
+  opacity: 0.4;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+  transform: scale(1);
+  animation: pulse-light 2s infinite;
+}
+
+@keyframes pulse-light {
+  0% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
 }
 
 /* Filters container */
@@ -238,36 +284,78 @@
   margin-bottom: var(--space-md);
 }
 
-.category-button {
+.category-filter {
   padding: var(--space-xs) var(--space-md);
-  border-radius: var(--radius-md);
+  border-radius: 24px; /* Rounded pill shape */
   font-size: var(--font-size-sm);
   font-weight: 500;
   background-color: rgba(30, 30, 30, 0.5); /* Dark transparent background */
   color: rgba(255, 255, 255, 0.85); /* Light text */
   border: 1px solid rgba(255, 215, 0, 0.2); /* Subtle gold border */
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
   backdrop-filter: blur(4px); /* Glass-like effect */
   -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow for better readability */
+  position: relative;
+  overflow: hidden;
 }
 
-.category-button:hover {
+.category-filter:hover {
   background-color: rgba(255, 215, 0, 0.15); /* Subtle gold background */
   color: var(--color-primary);
   border-color: var(--color-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05); /* Grow slightly on hover */
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(255, 215, 0, 0.2); /* Gold ring glow */
 }
 
-.category-button.active {
+.category-filter:hover::before {
+  opacity: 1;
+}
+
+.category-filter::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 26px;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 215, 0, 0.6) 0%,
+    rgba(255, 215, 0, 0.1) 25%,
+    rgba(255, 215, 0, 0) 50%,
+    rgba(255, 215, 0, 0.1) 75%,
+    rgba(255, 215, 0, 0.6) 100%
+  );
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.category-filter.active {
   background-color: var(--color-primary);
   color: #0F0F0F; /* Dark text on gold background */
   border-color: var(--color-primary);
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4); /* Gold glow */
-  transform: translateY(-2px); /* Lift active button higher */
+  transform: scale(1.05); /* Keep slightly bigger when active */
+  font-weight: 600;
+}
+
+.category-filter.active::before {
+  opacity: 1;
+  animation: rotateGradient 2s linear infinite;
+}
+
+@keyframes rotateGradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* News cards grid */
@@ -276,6 +364,12 @@
   grid-template-columns: 1fr;
   gap: var(--space-md);
   margin-top: var(--space-md);
+}
+
+/* AI Summary container */
+.ai-summary-container {
+  margin-top: var(--space-md);
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 /* Offline notice */
@@ -348,6 +442,17 @@
   }
   100% {
     box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -481,10 +586,12 @@
     animation-duration: 0.3s;
   }
   
-  .category-button {
+  .category-filter {
     flex: 1 0 calc(50% - var(--space-xs));
     text-align: center;
     white-space: nowrap;
+    font-size: 0.85rem;
+    padding: var(--space-xs) var(--space-sm);
   }
   
   /* Share and view toggles */

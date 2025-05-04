@@ -11,9 +11,16 @@
   border-radius: 18px;
   position: relative;
   overflow: hidden;
-  animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
   border: 1px solid rgba(255, 215, 0, 0.15);
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.ai-summary-view.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .ai-summary-view:hover {
@@ -48,6 +55,12 @@
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.header-title-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .summary-header h2 {
@@ -142,7 +155,8 @@
   border-top: 1px solid rgba(255, 215, 0, 0.15);
   padding-top: 1rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .ai-attribution {
@@ -222,6 +236,168 @@
 }
 
 /* Responsive adjustments */
+.ai-icon-large {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-right: 0.5rem;
+}
+
+.ai-core {
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 215, 0, 0.8);
+  border-radius: 50%;
+  position: relative;
+  animation: pulse 2s infinite;
+}
+
+.ai-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 50%;
+  animation: pulse 2s infinite 0.3s;
+}
+
+/* Sentiment badge styling */
+.sentiment-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sentiment-icon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.sentiment-positive .sentiment-icon {
+  background: #2ecc71;
+  box-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
+}
+
+.sentiment-neutral .sentiment-icon {
+  background: #f1c40f;
+  box-shadow: 0 0 8px rgba(241, 196, 15, 0.6);
+}
+
+.sentiment-negative .sentiment-icon {
+  background: #e74c3c;
+  box-shadow: 0 0 8px rgba(231, 76, 60, 0.6);
+}
+
+/* Section styling */
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgba(255, 215, 0, 0.9);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01em;
+}
+
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 215, 0, 0.6);
+  margin-right: 8px;
+  transform: rotate(45deg);
+}
+
+.summary-section {
+  margin-bottom: 2rem;
+  animation: fadeIn 0.5s ease-out forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.summary-highlights {
+  margin-bottom: 2rem;
+  animation: fadeIn 0.5s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.summary-topics {
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.5s ease-out forwards;
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.topic-pill {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topic-pill:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Data metrics */
+.data-metrics {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgba(255, 215, 0, 0.9);
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.25rem;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .ai-summary-view {
     padding: 1.25rem;
@@ -246,5 +422,29 @@
   
   .highlight-item {
     font-size: 0.95rem;
+  }
+  
+  .topics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+  
+  .data-metrics {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .metric {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .ai-icon-large {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .header-title-container {
+    gap: 0.5rem;
   }
 }
