@@ -1,4 +1,4 @@
-/* ImmersiveBackground.css - Exactly matching the provided specifications */
+/* ImmersiveBackground.css - Implementing exact specifications */
 
 .immersive-background {
   position: fixed;
@@ -11,70 +11,76 @@
   pointer-events: none; /* Allow clicking through the background */
 }
 
-/* Main cosmic particles layer - PRIMARY BACKGROUND */
-.cosmic-particles {
+/* MidJourney background with exact specifications */
+.midjourney-background {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  transition: transform 0.3s ease-out;
-}
-
-.cosmic-particles-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  /* Background image is applied inline in the component */
   background-size: cover;
   background-position: center;
-  opacity: 0.6; /* Exactly as specified, no lower */
-  animation: shimmer 20s ease-in-out infinite;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -1;
+  opacity: 0.8;
+  animation: shimmering-drift 15s ease-in-out infinite;
 }
 
-/* Shimmer overlay for subtle effect */
-.shimmer-overlay {
-  position: absolute;
+/* Animation for shimmering vertical particle drift */
+@keyframes shimmering-drift {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Vertical particles animation */
+.vertical-particles {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    rgba(255, 215, 0, 0.03) 40%,
-    rgba(255, 215, 0, 0.05) 50%,
-    rgba(255, 215, 0, 0.03) 60%,
-    transparent 100%
-  );
-  opacity: 0.6;
-  mix-blend-mode: screen;
-  animation: rotateShimmer 45s linear infinite;
+  pointer-events: none;
+  z-index: -1;
 }
 
-/* Animation for subtle vertical drift/parallax effect */
-@keyframes shimmer {
+.particle {
+  position: absolute;
+  top: -10px;
+  width: 1px;
+  height: 10px;
+  background: rgba(255, 215, 0, 0.4);
+  border-radius: 50%;
+  box-shadow: 0 0 6px 2px rgba(255, 215, 0, 0.2);
+  animation: particle-fall linear infinite;
+}
+
+@keyframes particle-fall {
   0% {
-    transform: translateY(0) scale(1.01);
+    transform: translateY(-10px);
+    opacity: 0;
   }
-  50% {
-    transform: translateY(-10px) scale(1.03);
+  10% {
+    opacity: var(--particle-opacity, 0.2);
+  }
+  90% {
+    opacity: var(--particle-opacity, 0.2);
   }
   100% {
-    transform: translateY(0) scale(1.01);
+    transform: translateY(100vh);
+    opacity: 0;
   }
 }
 
-/* Animation for rotating shimmer effect */
-@keyframes rotateShimmer {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Apply to all glass panels as specified */
+/* Apply to all glass panels as exactly specified */
 .glass-panel,
 .news-card,
 .article-detail-container,
@@ -84,15 +90,58 @@
 .read-more-link, 
 .analysis-link,
 .toggle-view-button,
-.share-button {
-  background-color: rgba(15, 15, 15, 0.3) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+.share-button,
+.error-container,
+.no-results,
+.article-content-container,
+.article-metadata,
+.article-summary-section,
+.article-content,
+.article-actions {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+}
+
+/* Gold particle shimmer layer */
+.particles {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 8%),
+    radial-gradient(circle at 75% 60%, rgba(255, 215, 0, 0.05) 0%, transparent 8%),
+    radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 8%);
+  animation: shimmer 20s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+/* Headline text glow */
+h1, h2, h3, .article-title, .section-heading {
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
+}
+
+/* Links and buttons glow effect */
+a, button, .read-more-link, .analysis-link, .share-button, .toggle-view-button, .full-analysis-button, .original-link {
+  transition: all 0.3s ease;
+}
+
+a:hover, button:hover, .read-more-link:hover, .analysis-link:hover, .share-button:hover, .toggle-view-button:hover, .full-analysis-button:hover, .original-link:hover {
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
 /* Ensure mobile devices also get proper background visibility */
 @media (max-width: 768px) {
-  .cosmic-particles-image {
-    opacity: 0.6; /* Keep opacity consistent on mobile */
+  .midjourney-background {
+    opacity: 0.8; /* Keep opacity consistent on mobile */
   }
 }

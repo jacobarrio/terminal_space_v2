@@ -9,7 +9,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Glass panels with exact specifications */
+/* Glass panels with exactly 50% transparency as specified */
 .glass-panel,
 .news-card,
 .article-detail-container,
@@ -19,11 +19,14 @@ body {
 .read-more-link, 
 .analysis-link,
 .toggle-view-button,
-.share-button {
-  background-color: rgba(15, 15, 15, 0.3) !important; /* Exactly as specified */
-  backdrop-filter: blur(10px) !important; /* Exactly as specified */
+.share-button,
+.error-container,
+.no-results,
+.offline-notice {
+  background: rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
 }
 
 /* Ensure main content containers show the background */
@@ -40,27 +43,23 @@ body {
 
 /* Header styling */
 .header {
-  background-color: rgba(15, 15, 15, 0.3) !important; /* Exactly as specified */
-  backdrop-filter: blur(10px) !important; /* Exactly as specified */
+  background: rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
 }
 
 /* Ensure forms and inputs let the background shine through */
 input, textarea, select {
-  background-color: rgba(15, 15, 15, 0.3) !important; /* Exactly as specified */
-  backdrop-filter: blur(10px) !important; /* Exactly as specified */
+  background: rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 215, 0, 0.2) !important;
-}
-
-input:focus, textarea:focus, select:focus {
-  border-color: rgba(255, 215, 0, 0.4) !important;
+  border-radius: 12px;
 }
 
 /* Enhanced text shadows for better readability against the dynamic background */
 h1, h2, h3, h4, h5, h6 {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: #fff;
 }
 
 /* Ensure all containers have exact transparency */
@@ -70,8 +69,24 @@ h1, h2, h3, h4, h5, h6 {
 .header-inner,
 .search-bar,
 .filter-options,
-.category-selector {
-  background-color: rgba(15, 15, 15, 0.3) !important; /* Exactly as specified */
-  backdrop-filter: blur(10px) !important; /* Exactly as specified */
+.category-selector,
+.error-details p,
+.error-details summary {
+  background: rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 12px;
+}
+
+/* Fix any z-index issues to keep background visible during scrolling */
+.home-container, 
+.page-header,
+.futuristic-background {
+  background: transparent !important;
+}
+
+/* Fix for page background overlays */
+.bg-overlay, 
+.gradient-overlay {
+  display: none !important;
 }

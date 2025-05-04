@@ -243,17 +243,7 @@ const Home = () => {
     <div className="home-container">
       <div className="page-header">
         <div className="futuristic-background bg-animated">
-          {/* Background image and overlay */}
-          <div className="bg-image-container">
-            <img 
-              src="/images/terminal_space_bg.jpeg" 
-              alt="Terminal Space background" 
-              className="bg-image"
-            />
-            <div className="bg-overlay"></div>
-            {/* MidJourney image animated overlay component */}
-            <AnimatedOverlay />
-          </div>
+          {/* No additional background elements - using main background */}
           
           <div className="bg-content page-header-background">
             <div className="header-top">

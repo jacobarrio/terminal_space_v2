@@ -7,17 +7,9 @@
   position: relative;
 }
 
-/* Header background with animated overlay */
+/* Remove header background overlay to let MidJourney background show through */
 .header-background {
-  position: absolute;
-  top: -120px;
-  left: 0;
-  right: 0;
-  height: 220px;
-  z-index: -1;
-  overflow: hidden;
-  background-color: rgba(15, 15, 15, 0.95);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  display: none; /* Hide the original header background */
 }
 
 /* Article actions - top */
@@ -26,10 +18,10 @@
   justify-content: space-between;
   margin-bottom: var(--space-lg);
   padding: var(--space-sm) var(--space-md);
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 1;
@@ -65,8 +57,10 @@
 
 /* Article content */
 .article-content {
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
   box-shadow: var(--shadow-1);
   padding: var(--space-xl);
   margin-bottom: var(--space-lg);
@@ -106,8 +100,10 @@
   gap: var(--space-sm);
   width: 100%;
   padding: var(--space-sm);
-  background-color: var(--color-background);
-  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
   border-left: 3px solid var(--color-primary);
 }
 
@@ -235,8 +231,10 @@
   line-height: 1.7;
   color: var(--color-text-primary);
   padding: var(--space-md);
-  background-color: var(--color-background);
-  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
   border-left: 4px solid var(--color-primary);
 }
 
