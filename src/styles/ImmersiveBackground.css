@@ -43,28 +43,73 @@
 }
 
 .midjourney-circle {
-  width: 60%;
-  height: 60%;
+  width: 70%;
+  height: 70%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0.3; /* Reduced opacity as specified */
   filter: blur(3px);
   animation: pulse-glow 8s ease-in-out infinite;
+  background-blend-mode: screen;
+  box-shadow: 0 0 150px 30px rgba(255, 215, 0, 0.1);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.midjourney-circle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+.midjourney-circle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 60%
+  );
+  z-index: 2;
+  animation: gentle-spin 30s linear infinite;
+}
+
+@keyframes gentle-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes pulse-glow {
   0% {
-    opacity: 0.2;
-    transform: scale(0.95);
+    opacity: 0.25;
+    transform: scale(0.98);
+    box-shadow: 0 0 120px 10px rgba(255, 215, 0, 0.05);
   }
   50% {
-    opacity: 0.3;
-    transform: scale(1.05);
+    opacity: 0.35;
+    transform: scale(1.02);
+    box-shadow: 0 0 150px 30px rgba(255, 215, 0, 0.15);
   }
   100% {
-    opacity: 0.2;
-    transform: scale(0.95);
+    opacity: 0.25;
+    transform: scale(0.98);
+    box-shadow: 0 0 120px 10px rgba(255, 215, 0, 0.05);
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
-const TerminalSpaceLogo = ({ width = 120, height = 40, className = '' }) => {
+const TerminalSpaceLogo = ({ width = 144, height = 48, className = '' }) => {
+  // Increased default size by 20%
   return (
     <svg 
       width={width} 
@@ -9,8 +10,19 @@ const TerminalSpaceLogo = ({ width = 120, height = 40, className = '' }) => {
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      filter="drop-shadow(0 0 10px rgba(255, 215, 0, 0.3))"
     >
       {/* Logo square with rounded corners */}
+      <defs>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="5" result="blur" />
+          <feFlood floodColor="#FFD700" floodOpacity="0.3" result="color" />
+          <feComposite in="color" in2="blur" operator="in" result="glow" />
+          <feComposite in="SourceGraphic" in2="glow" operator="over" />
+        </filter>
+      </defs>
+      
+      {/* Logo square with rounded corners and glow */}
       <rect
         x="10"
         y="10"
@@ -20,6 +32,7 @@ const TerminalSpaceLogo = ({ width = 120, height = 40, className = '' }) => {
         fill="#FFD700"
         stroke="#FFD700"
         strokeWidth="6"
+        filter="url(#glow)"
       />
       
       {/* Terminal prompt character (>) */}
@@ -37,28 +50,38 @@ const TerminalSpaceLogo = ({ width = 120, height = 40, className = '' }) => {
         height="6"
         fill="#121212"
         strokeWidth="0"
-      />
+      >
+        <animate 
+          attributeName="opacity" 
+          values="1;0.3;1" 
+          dur="2s" 
+          repeatCount="indefinite" 
+        />
+      </rect>
       
       {/* Text: Terminal */}
       <text
         x="130"
         y="50"
-        fontFamily="Arial, sans-serif"
+        fontFamily="Inter, Arial, sans-serif"
         fontSize="32"
-        fontWeight="500"
+        fontWeight="600"
         fill="#FFFFFF"
+        letterSpacing="0.5"
       >
         Terminal
       </text>
       
-      {/* Text: Space */}
+      {/* Text: Space - with gold color */}
       <text
         x="130"
         y="90"
-        fontFamily="Arial, sans-serif"
+        fontFamily="Inter, Arial, sans-serif"
         fontSize="32"
-        fontWeight="500"
-        fill="#FFFFFF"
+        fontWeight="600"
+        fill="#FFD700"
+        letterSpacing="0.5"
+        filter="url(#glow)"
       >
         Space
       </text>

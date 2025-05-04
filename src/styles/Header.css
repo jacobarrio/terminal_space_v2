@@ -43,24 +43,34 @@
 }
 
 .logo-image {
-  width: 120px;
+  width: 144px; /* Increased by 20% */
   height: auto;
   transition: transform var(--transition-fast), filter var(--transition-fast);
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+  margin-left: 0.5rem; /* Add left padding to prevent edge crowding */
 }
 
 .logo-text {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 0.5rem;
 }
 
 .logo-terminal {
   color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .logo-space {
-  color: #FFFFFF;
-  margin-left: 4px;
+  color: #FFD700;
+  margin-left: 6px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
 }
 
 /* Navigation */
@@ -252,7 +262,8 @@
   }
   
   .logo-image {
-    width: 80px;
+    width: 96px; /* Increased by 20% from 80px */
+    margin-left: 0;
   }
   
   .logo-text {
