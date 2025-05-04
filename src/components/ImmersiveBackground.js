@@ -1,30 +1,41 @@
 import React from 'react';
 import '../styles/ImmersiveBackground.css';
 
-// Import the MidJourney image - trying a different image
-import midJourneyImage from '../../attached_assets/IMG_1850.jpeg';
+// Import the MidJourney images
+import midJourneyCorridorImage from '../../attached_assets/IMG_1850.jpeg';
+import midJourneyCircleImage from '../../attached_assets/IMG_1843.jpeg';
 
 /**
- * ImmersiveBackground - Creates a fullscreen fixed background
- * Implements the exact specifications with shimmering particles
+ * ImmersiveBackground - Creates a fullscreen fixed background with layered design
+ * Implements the exact specifications with shimmering particles and central glow
  */
 const ImmersiveBackground = () => {
   return (
     <div className="immersive-background">
-      {/* MidJourney background image with shimmering animation */}
+      {/* Main MidJourney background image with shimmering animation */}
       <div 
         className="midjourney-background"
         style={{
-          backgroundImage: `url(${midJourneyImage})`,
+          backgroundImage: `url(${midJourneyCorridorImage})`,
         }}
       ></div>
+      
+      {/* Central glowing circle element */}
+      <div className="midjourney-circle-container">
+        <div 
+          className="midjourney-circle"
+          style={{
+            backgroundImage: `url(${midJourneyCircleImage})`,
+          }}
+        ></div>
+      </div>
       
       {/* Gold particle shimmer layer */}
       <div className="particles"></div>
       
       {/* Animated vertical particles */}
       <div className="vertical-particles">
-        {Array.from({ length: 30 }).map((_, i) => (
+        {Array.from({ length: 40 }).map((_, i) => (
           <div 
             key={i}
             className="particle"

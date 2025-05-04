@@ -11,7 +11,7 @@
   pointer-events: none; /* Allow clicking through the background */
 }
 
-/* MidJourney background with exact specifications */
+/* Main MidJourney corridor background with exact specifications */
 .midjourney-background {
   position: fixed;
   top: 0;
@@ -26,6 +26,46 @@
   z-index: -100; /* Ensure it's always behind content */
   opacity: 1; /* Full opacity to ensure visibility */
   animation: shimmering-drift 15s ease-in-out infinite;
+}
+
+/* Central glowing circle element */
+.midjourney-circle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: -90; /* Above main background but below content */
+}
+
+.midjourney-circle {
+  width: 60%;
+  height: 60%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3; /* Reduced opacity as specified */
+  filter: blur(3px);
+  animation: pulse-glow 8s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
 }
 
 /* Animation for shimmering vertical particle drift */

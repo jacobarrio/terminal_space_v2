@@ -1,0 +1,203 @@
+/* Modern Header Styling - High-end professional news platform styling */
+
+/* Latest News Header */
+.page-title {
+  font-family: 'Inter', 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.6);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  position: relative;
+  display: inline-block;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.7), transparent);
+  transition: width 0.3s ease-in-out;
+}
+
+.page-title:hover::after {
+  width: 100%;
+}
+
+/* Search Bar Styling */
+.search-container {
+  position: relative;
+  margin: 1rem 0 2rem;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  background: rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: 16px !important;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.search-container i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 215, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+.search-container input:focus + i,
+.search-container:hover i {
+  animation: search-pulse 1.5s infinite;
+}
+
+@keyframes search-pulse {
+  0% {
+    opacity: 0.6;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+/* Categories Styling */
+.filters-container {
+  margin: 1rem 0 2rem;
+}
+
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.category-filter {
+  padding: 0.6rem 1.25rem;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 24px; /* Pill-shaped */
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.category-filter:hover {
+  border-color: rgba(255, 215, 0, 0.8);
+  color: white;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.category-filter.active {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.8);
+  color: white;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+/* View Toggle Button */
+.view-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.view-toggle-button:hover {
+  border-color: rgba(255, 215, 0, 0.8);
+  color: white;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.view-toggle-button.active {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.8);
+  color: white;
+}
+
+.view-toggle-button i {
+  transition: transform 0.3s ease;
+}
+
+.view-toggle-button:hover i {
+  transform: scale(1.1);
+}
+
+/* Headers and subheaders */
+.section-subheader {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 215, 0, 0.8);
+  margin-bottom: 1rem;
+  letter-spacing: 0.03em;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .search-container {
+    margin: 0.75rem 0 1.5rem;
+  }
+  
+  .category-filters {
+    gap: 0.5rem;
+  }
+  
+  .category-filter {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Dark mode enhancement */
+@media (prefers-color-scheme: dark) {
+  .page-title {
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+  }
+  
+  .category-filter.active {
+    background: rgba(255, 215, 0, 0.25);
+  }
+}
