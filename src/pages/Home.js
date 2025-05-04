@@ -6,6 +6,7 @@ import ErrorMessage from '../components/ErrorMessage';
 import AnimatedOverlay from '../components/AnimatedOverlay';
 import { fetchTopNews, searchNews } from '../services/gnewsService';
 import '../styles/Home.css';
+import '../styles/ModernHeader.css';
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
@@ -187,14 +188,14 @@ const Home = () => {
     setViewPreference(viewPreference === 'summary' ? 'full' : 'summary');
   };
 
-  // Render category filters
+  // Render category filters with modern pill design
   const renderCategoryFilters = () => {
     return (
       <div className={`category-filters ${showMobileFilters ? 'mobile-expanded' : ''}`}>
         {categories.map((cat) => (
           <button
             key={cat}
-            className={`category-button ${cat === category ? 'active' : ''}`}
+            className={`category-filter ${cat === category ? 'active' : ''}`}
             onClick={() => handleCategoryChange(cat)}
           >
             {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -204,19 +205,20 @@ const Home = () => {
     );
   };
   
-  // Render search bar
+  // Render search bar with glassmorphism and animation effects
   const renderSearchBar = () => {
     return (
-      <form className="search-form" onSubmit={handleSearchSubmit}>
-        <div className="search-input-container">
+      <div className="search-container">
+        <form onSubmit={handleSearchSubmit}>
           <input
             type="text"
-            placeholder="Search news..."
+            placeholder="Search news articles..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="search-input"
             ref={searchInputRef}
           />
+          <i data-feather="search"></i>
+          
           {searchInput && (
             <button 
               type="button" 
@@ -227,66 +229,50 @@ const Home = () => {
               }}
               aria-label="Clear search"
             >
-              <i data-feather="x" className="icon-small"></i>
+              <i data-feather="x"></i>
             </button>
           )}
-        </div>
-        <button type="submit" className="search-button">
-          <i data-feather="search" className="icon-small"></i>
-          <span className="hidden-mobile">Search</span>
-        </button>
-      </form>
+          
+          <button type="submit" className="search-submit-button">
+            <span className="hidden-mobile">Search</span>
+          </button>
+        </form>
+      </div>
     );
   };
 
   return (
     <div className="home-container">
       <div className="page-header">
-        <div className="futuristic-background bg-animated">
-          {/* No additional background elements - using main background */}
+        <div className="header-content glass-panel">
+          <div className="header-main">
+            {searchQuery ? (
+              <h1 className="page-title">Search Results: "{searchQuery}"</h1>
+            ) : (
+              <h1 className="page-title">Latest News</h1>
+            )}
+              
+            <div className="header-actions">
+              <button 
+                className="view-toggle-button"
+                onClick={toggleViewPreference}
+                aria-label={`Switch to ${viewPreference === 'summary' ? 'full' : 'summary'} view`}
+              >
+                <i data-feather={viewPreference === 'summary' ? 'maximize-2' : 'minimize-2'}></i>
+                <span className="hidden-mobile">{viewPreference === 'summary' ? 'Full View' : 'Summary View'}</span>
+              </button>
+            </div>
+          </div>
           
-          <div className="bg-content page-header-background">
-            <div className="header-top">
-              {searchQuery ? (
-                <h1 className="page-title slide-down">Search Results: "{searchQuery}"</h1>
-              ) : (
-                <h1 className="page-title slide-down">Latest News</h1>
-              )}
-              
-              <div className="header-actions fade-in">
-                <button 
-                  className={`view-toggle-button ${viewPreference === 'full' ? 'active' : ''}`}
-                  onClick={toggleViewPreference}
-                  aria-label={`Switch to ${viewPreference === 'summary' ? 'full' : 'summary'} view`}
-                >
-                  <i data-feather={viewPreference === 'summary' ? 'maximize-2' : 'minimize-2'} className="icon-small"></i>
-                  <span className="hidden-mobile">{viewPreference === 'summary' ? 'Full View' : 'Summary View'}</span>
-                </button>
-                
-                <button 
-                  className={`filter-toggle-button ${showMobileFilters ? 'active' : ''}`}
-                  onClick={toggleMobileFilters}
-                  aria-label="Toggle filters"
-                >
-                  <i data-feather="filter" className="icon-small"></i>
-                  <span className="hidden-mobile">Filters</span>
-                </button>
-              </div>
-            </div>
+          <div className="header-controls">
+            {renderSearchBar()}
             
-            <div className="header-controls">
-              {renderSearchBar()}
-              
-              {!searchQuery && (
-                <div className="filters-container">
-                  <div className="mobile-filter-label" onClick={toggleMobileFilters}>
-                    <span>Categories</span>
-                    <i data-feather={showMobileFilters ? 'chevron-up' : 'chevron-down'} className="icon-small"></i>
-                  </div>
-                  {renderCategoryFilters()}
-                </div>
-              )}
-            </div>
+            {!searchQuery && (
+              <div className="filters-container">
+                <h3 className="section-subheader">Categories</h3>
+                {renderCategoryFilters()}
+              </div>
+            )}
           </div>
         </div>
       </div>
