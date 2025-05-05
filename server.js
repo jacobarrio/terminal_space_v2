@@ -48,18 +48,48 @@ app.get('/api/news', async (req, res) => {
     
     // If category is 'politics', we need to use a special search query since GNews doesn't have a direct politics topic
     if (category === 'politics') {
-      // Use the search endpoint instead with a politics-related query
-      const response = await axios.get(`${GNEWS_BASE_URL}/search`, {
-        params: {
-          token: GNEWS_API_KEY,
-          lang,
-          q: 'politics OR government OR election',
-          max: count
+      try {
+        // Use the search endpoint instead with a politics-related query
+        const response = await axios.get(`${GNEWS_BASE_URL}/search`, {
+          params: {
+            token: GNEWS_API_KEY,
+            lang,
+            q: 'politics OR government OR election',
+            max: count
+          }
+        });
+        
+        // Ensure we only use unique articles by url to avoid duplicates
+        if (response.data && response.data.articles && Array.isArray(response.data.articles)) {
+          // Create a Map to store unique articles by URL
+          const uniqueArticles = new Map();
+          
+          response.data.articles.forEach(article => {
+            if (article.url && !uniqueArticles.has(article.url)) {
+              uniqueArticles.set(article.url, article);
+            }
+          });
+          
+          // Convert Map back to array
+          const deduplicatedArticles = Array.from(uniqueArticles.values());
+          
+          // Send the cleaned response with unique articles
+          res.json({
+            ...response.data,
+            articles: deduplicatedArticles
+          });
+        } else {
+          // If the response doesn't have articles array, just return it as is
+          res.json(response.data);
         }
-      });
-      
-      res.json(response.data);
-      return;
+        return;
+      } catch (politicsError) {
+        console.error('Error fetching politics news:', politicsError.message);
+        // If politics search fails, we'll fall back to top headlines endpoint with a topic of "world"
+        console.log('Falling back to "world" category for politics');
+        // Continue to the top-headlines endpoint below with topic = "world"
+        topic = "world";
+      }
     }
     
     // For all other standard categories, use the top-headlines endpoint

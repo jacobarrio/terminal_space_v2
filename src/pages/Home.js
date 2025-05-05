@@ -51,16 +51,36 @@ const Home = () => {
       if (searchQuery) {
         // If there's a search query, use the search endpoint
         data = await searchNews(searchQuery);
-        if (data.articles) {
-          setArticles(data.articles);
+        if (data.articles && Array.isArray(data.articles)) {
+          // Ensure no duplicate articles by URL
+          const uniqueUrls = new Set();
+          const uniqueArticles = data.articles.filter(article => {
+            if (!article.url || uniqueUrls.has(article.url)) {
+              return false;
+            }
+            uniqueUrls.add(article.url);
+            return true;
+          });
+          
+          setArticles(uniqueArticles);
         } else {
           setArticles([]);
         }
       } else {
         // Otherwise load top news by category
         data = await fetchTopNews(category);
-        if (data.articles) {
-          setArticles(data.articles);
+        if (data.articles && Array.isArray(data.articles)) {
+          // Ensure no duplicate articles by URL
+          const uniqueUrls = new Set();
+          const uniqueArticles = data.articles.filter(article => {
+            if (!article.url || uniqueUrls.has(article.url)) {
+              return false;
+            }
+            uniqueUrls.add(article.url);
+            return true;
+          });
+          
+          setArticles(uniqueArticles);
         } else {
           setArticles([]);
         }
