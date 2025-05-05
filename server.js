@@ -42,11 +42,32 @@ app.get('/api/news', async (req, res) => {
   try {
     const { category = 'general', count = 10, lang = 'en' } = req.query;
     
+    // Map our category names to GNews API topics if needed
+    // GNews API supports: breaking-news, world, nation, business, technology, entertainment, sports, science, health
+    let topic = category;
+    
+    // If category is 'politics', we need to use a special search query since GNews doesn't have a direct politics topic
+    if (category === 'politics') {
+      // Use the search endpoint instead with a politics-related query
+      const response = await axios.get(`${GNEWS_BASE_URL}/search`, {
+        params: {
+          token: GNEWS_API_KEY,
+          lang,
+          q: 'politics OR government OR election',
+          max: count
+        }
+      });
+      
+      res.json(response.data);
+      return;
+    }
+    
+    // For all other standard categories, use the top-headlines endpoint
     const response = await axios.get(`${GNEWS_BASE_URL}/top-headlines`, {
       params: {
         token: GNEWS_API_KEY,
         lang,
-        topic: category,
+        topic,
         max: count
       }
     });

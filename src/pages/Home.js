@@ -37,7 +37,7 @@ const Home = () => {
   const categories = [
     'general', 'world', 'nation', 'business', 
     'technology', 'entertainment', 'sports', 
-    'science', 'health'
+    'science', 'health', 'politics'
   ];
 
   // Load news articles based on search query or category
