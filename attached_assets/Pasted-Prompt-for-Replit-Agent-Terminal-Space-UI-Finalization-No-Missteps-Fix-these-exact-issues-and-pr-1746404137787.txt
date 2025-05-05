@@ -1,0 +1,56 @@
+Prompt for Replit Agent: Terminal Space UI Finalization (No Missteps)
+
+Fix these exact issues and provide screenshots for verification:
+
+⸻
+
+1. Remove or Fix Non-functional Buttons
+	•	The “expand screen” and AI-chip icons near “Latest News” currently do nothing or confuse users.
+Do one of the following:
+	•	Remove them completely or
+	•	Assign clear functionality:
+	•	Expand icon triggers fullscreen mode.
+	•	AI-chip icon opens an About Terminal Space modal (see section 2).
+No visual element should exist without a purpose.
+
+⸻
+
+2. Relocate AI Summary Pop-up
+	•	The “How Terminal Space Uses AI” box currently pops up from an awkward location.
+Fix:
+	•	Move this to the top navigation bar as a clearly labeled item:
+	•	About Terminal Space
+	•	When clicked, open the same information in a styled modal window.
+	•	Ensure the close button works and the modal doesn’t block scroll if dismissed.
+
+⸻
+
+3. Upgrade Sitewide Font
+	•	Current font is default and looks amateur.
+Fix:
+	•	Apply a stylish, professional sans-serif font like Inter, Poppins, or Space Grotesk globally.
+	•	Ensure hierarchy: Titles bold and larger, body text clean and readable.
+	•	Keep the futuristic aesthetic consistent across headings, nav, and cards.
+
+⸻
+
+4. Fix or Remove Inactive Glow Buttons
+	•	Example shown in images: some buttons animate on hover but don’t do anything.
+Fix:
+	•	If a button doesn’t produce clear feedback or value to the user (like toggling analysis or summary), remove it entirely.
+	•	If it’s meant to show content (like political bias, emotion score, etc.), make sure it does so visibly and clearly.
+
+⸻
+
+5. BONUS: Add Polished UI Interactions
+	•	Add subtle UI transitions and hover effects:
+	•	Smooth fade-in for modals (e.g., 300ms ease-in).
+	•	Hover states on nav items with soft glow or underline.
+	•	Interactive buttons (like “Read Full Article”) should animate slightly on hover with scaling or outline pulse.
+
+⸻
+
+Final Verification
+	•	Provide updated screenshots after applying all changes.
+	•	Verify everything works on mobile and desktop preview.
+	•	Confirm that the updated font, cleaned-up UI, and functional buttons match a premium, professional news app aesthetic.

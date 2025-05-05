@@ -1,0 +1,48 @@
+lease apply the following precise changes to improve the UI, functionality, and user experience of the Terminal Space app:
+
+⸻
+
+1. Fix or Remove Incomplete UI Elements:
+	•	Top-right dot icons:
+	•	Remove both dot icons unless they serve a clear, functional purpose.
+	•	If keeping the “Compare Articles” feature:
+	•	Add a clearly labeled “+ Compare” button to each article card.
+	•	When at least two articles are selected, show a side-by-side comparison view with source info, bias slider, emotional tone, and key points.
+	•	Include a “Clear Comparison” button to reset selections.
+	•	Hide this feature entirely if it’s not ready or intuitive.
+	•	Search/Filter Buttons:
+	•	Ensure all icon buttons (search, filters, etc.) have clear tooltips on hover and cursor changes to pointer when interactive.
+
+⸻
+
+2. AI Summary Modal Improvements:
+	•	Move the “AI Summary” button to the top navigation bar under a new nav item: “About”.
+	•	Only trigger the modal when the “AI Summary” button is clicked.
+	•	Apply a cleaner modal layout, modern font, and readable line spacing.
+	•	Add a soft fade-in animation for modal appearance and a visible close button.
+
+⸻
+
+3. Typography & Readability:
+	•	Replace the current font with a modern, readable web-safe font such as:
+	•	Inter, Space Grotesk, or Poppins.
+	•	Ensure consistent use of font weights and sizes for:
+	•	Titles, article text, category buttons, and modal content.
+	•	Add an optional “Reader Mode” toggle in the top nav or settings:
+	•	When enabled, it increases font size slightly and boosts contrast for accessibility.
+
+⸻
+
+4. Polish & Interactivity Enhancements:
+	•	Standardize button hover animations across the app (gold glow with smooth transitions).
+	•	Ensure all icons and interactive elements have proper hover states and visual feedback.
+	•	Refine padding/margin across sections to ensure proper spacing (especially top/bottom of cards and containers).
+
+⸻
+
+5. Optional but Recommended:
+	•	Add an Onboarding Tip on first visit:
+	•	A dismissible popup or tooltip set that highlights major features (e.g., “Use Compare to analyze articles side by side”).
+	•	Add a Theme Toggle in the settings or nav:
+	•	Toggle between Light/Dark modes for broader user preference support.
+	•	Consider a “Saved Articles” or Bookmark feature in the top bar for future expansion.
