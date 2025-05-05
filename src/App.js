@@ -10,23 +10,22 @@ import './styles/GoldInteractiveElements.css';
 import './styles/GoldenBackgroundEffect.css'; // Import the new global background effects
 
 const App = () => {
-  // State to manage dark mode
+  // State to manage dark mode - button removed, setting default mode
   const [darkMode, setDarkMode] = useState(() => {
-    // Check if user previously set dark mode preference
-    const savedMode = localStorage.getItem('darkMode');
-    return savedMode === 'true' || 
-           (savedMode === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    // Check system preference or default to true
+    return window.matchMedia('(prefers-color-scheme: dark)').matches || true;
   });
 
-  // Apply dark mode class to body
+  // Apply dark mode class to body - always enabled
   useEffect(() => {
-    document.body.classList.toggle('dark-mode', darkMode);
-    localStorage.setItem('darkMode', darkMode);
-  }, [darkMode]);
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('darkMode', 'true');
+  }, []);
 
-  // Function to toggle dark mode
+  // Function placeholder to maintain API compatibility
   const toggleDarkMode = () => {
-    setDarkMode(prev => !prev);
+    // Functionality removed as buttons have been removed
+    console.log('Dark mode toggle removed');
   };
 
   // Listen for scroll events to apply parallax effects

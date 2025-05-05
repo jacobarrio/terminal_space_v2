@@ -39,13 +39,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
         </div>
         
         <div className="mobile-icons">
-          <button 
-            className="dark-mode-toggle gold-interactive" 
-            onClick={toggleDarkMode} 
-            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            <i data-feather={darkMode ? 'sun' : 'moon'}></i>
-          </button>
+          {/* Dark mode toggle button removed */}
           
           <button 
             className="menu-toggle gold-interactive" 
@@ -78,15 +72,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
                 </button>
               </form>
             </li>
-            <li className="nav-item desktop-only">
-              <button 
-                className="dark-mode-toggle gold-interactive" 
-                onClick={toggleDarkMode} 
-                aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-              >
-                <i data-feather={darkMode ? 'sun' : 'moon'}></i>
-              </button>
-            </li>
+            {/* Dark mode toggle button removed */}
           </ul>
         </nav>
       </div>
