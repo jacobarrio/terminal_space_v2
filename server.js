@@ -49,37 +49,75 @@ app.get('/api/news', async (req, res) => {
     // If category is 'politics', we need to use a special search query since GNews doesn't have a direct politics topic
     if (category === 'politics') {
       try {
+        console.log('Fetching politics news with special query...');
+        
         // Use the search endpoint instead with a politics-related query
+        // Use multiple different queries to get more variety
+        const queries = [
+          'politics',
+          'government news',
+          'election results',
+          'senate OR congress OR parliament',
+          'political party OR democrat OR republican'
+        ];
+        
+        // Pick a random query to get different results each time
+        const randomQuery = queries[Math.floor(Math.random() * queries.length)];
+        console.log(`Using politics query: "${randomQuery}"`);
+        
         const response = await axios.get(`${GNEWS_BASE_URL}/search`, {
           params: {
             token: GNEWS_API_KEY,
             lang,
-            q: 'politics OR government OR election',
+            q: randomQuery,
             max: count
           }
         });
+        
+        console.log(`Politics search returned ${response.data?.articles?.length || 0} articles`);
+        
+        // Debug: log URLs of all articles to see if they're actually the same
+        if (response.data?.articles) {
+          console.log('URLs of politics articles:');
+          response.data.articles.forEach((article, index) => {
+            console.log(`  [${index}] ${article.url}`);
+          });
+        }
         
         // Ensure we only use unique articles by url to avoid duplicates
         if (response.data && response.data.articles && Array.isArray(response.data.articles)) {
           // Create a Map to store unique articles by URL
           const uniqueArticles = new Map();
+          let duplicateCount = 0;
           
           response.data.articles.forEach(article => {
             if (article.url && !uniqueArticles.has(article.url)) {
-              uniqueArticles.set(article.url, article);
+              uniqueArticles.set(article.url, {
+                ...article,
+                // Add a unique ID to each article to help with React keying
+                _id: `politics-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+              });
+            } else if (article.url) {
+              duplicateCount++;
             }
           });
+          
+          console.log(`Removed ${duplicateCount} duplicate articles, ${uniqueArticles.size} remaining`);
           
           // Convert Map back to array
           const deduplicatedArticles = Array.from(uniqueArticles.values());
           
           // Send the cleaned response with unique articles
-          res.json({
+          const responseData = {
             ...response.data,
             articles: deduplicatedArticles
-          });
+          };
+          
+          console.log(`Sending ${responseData.articles.length} politics articles`);
+          res.json(responseData);
         } else {
           // If the response doesn't have articles array, just return it as is
+          console.log('Politics search response did not contain valid articles array');
           res.json(response.data);
         }
         return;

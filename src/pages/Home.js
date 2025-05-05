@@ -345,7 +345,7 @@ const Home = () => {
               {/* Show live articles first */}
               {articles.map((article, index) => (
                 <NewsCard 
-                  key={article.url || index} 
+                  key={article._id || `${article.url}-${index}-${Date.now()}`} 
                   article={article}
                   summary={summarized[article.url]}
                   isSearchResult={!!searchQuery}
@@ -360,7 +360,7 @@ const Home = () => {
                   .sort((a, b) => b.cached - a.cached) // Most recently cached first
                   .map((article, index) => (
                     <NewsCard 
-                      key={article.url || index} 
+                      key={article._id || `${article.url}-cached-${index}-${Date.now()}`} 
                       article={article}
                       summary={summarized[article.url]}
                       isSearchResult={false}
