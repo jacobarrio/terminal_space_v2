@@ -1,0 +1,30 @@
+Refine and Fix the Terminal Space Homepage UI/UX:
+	1.	Remove Both Dots in the Top Right Corner:
+	•	These controls do not currently provide meaningful functionality and should be removed to prevent user confusion and clean up the interface.
+	2.	Fix AI Summary Modal:
+	•	Make the modal scrollable on all screen sizes if the content exceeds viewport height.
+	•	Ensure that clicking outside the modal or pressing “Escape” also closes it.
+	•	Add a visible scroll indicator (like a subtle bar) to clarify that more content exists below the fold.
+	3.	Typography Upgrade:
+	•	Replace the current font throughout the app with a clean, modern, professional typeface like IBM Plex Sans, Space Grotesk, or Sora.
+	•	Ensure consistency in font size, line height, and spacing for all text elements (titles, body, buttons, tooltips).
+	4.	Navigation and Button Improvements:
+	•	Move the AI Summary modal into a proper “About” or “How It Works” section in the top navbar.
+	•	Add an “About” nav item and move the modal trigger there. Clicking “AI Summary” next to Latest News should now just highlight or scroll to the new About section.
+	5.	Compare Articles Panel:
+	•	If the second dot was meant to trigger a Compare Articles window:
+	•	Build a functional article comparison flow:
+	•	Add “Compare” buttons to each article card.
+	•	When 2 articles are selected, show a side-by-side comparison page or modal.
+	•	Display metrics like Bias, Summary, Emotional Tone, and Facts side-by-side.
+	6.	Interactive Polish:
+	•	Ensure all hover effects are subtle and consistent.
+	•	Fix any button hover states that cause unexpected flickering, dimming, or glow that obscures legibility.
+	7.	Design Cohesion:
+	•	Verify that the MidJourney circle-core background stays centered and subtly animated.
+	•	Keep shimmer and glow non-distracting, soft, and in the background layer only.
+	•	Maintain consistency in border-radius, padding, and spacing between all cards and containers.
+	8.	Accessibility Enhancements:
+	•	Ensure contrast ratios are WCAG compliant.
+	•	Add proper keyboard navigation support (Tab to jump through interactive elements).
+	•	Add ARIA labels for important controls like Search, Categories, and AI Summary.
